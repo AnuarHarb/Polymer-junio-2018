@@ -9,3 +9,5 @@
 - git remote -v
 - git push origin master
 - git clone "url"
+- git remote add upstream "ur"
+- git pull upstream master
