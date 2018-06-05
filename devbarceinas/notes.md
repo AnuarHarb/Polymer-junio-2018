@@ -20,3 +20,10 @@
 - center: Alienea elementos en el centro del contenedor.
 - space-between: Muestra elementos con la misma distancia entre ellos.
 - space-around: Muestra elementos con la misma seperación alrededor de ellos.
+
+#### align-items: Alinea elemetnos verticalmente
+- flex-start: Alinea elementos a la parte superior del contenedor.
+- flex-end: Alinea elementos a la parte inferior del contenedor.
+- center: Alienea elementos en el centro (verticalmente hablando) del contenedor.
+- baseline: Muestra elementos en la linea base del contenedor.
+- stretch: Elementos se estiran para ajustarse al contenedor.
