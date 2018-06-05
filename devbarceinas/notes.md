@@ -33,3 +33,25 @@
 - **row-reverse:** Elementos son colocados en la dirección opuesta del texto.
 - **column:** Elementos se colocan de arriba hacia abajo.
 - **column-reverse:** Elementos se colocan de abajo hacia arriba.
+
+#### order: Nos permite ordenar elmentos individuales
+- **order:** -1 0 1
+
+#### align-self: Nos permite alienar horizontalment elementos individuales
+- **align-self:** Tiene las mismas propiedades que **align-items**
+
+#### flex-wrap
+- **nowrap:** Cada elementos se ajusta en una sola linea.
+- **wrap:** Los elementos se envuelven de lineas adicionales.
+- **wrap-reverse:** Los elementos se envuelven alrededor de lineas adicionales en reversa.
+
+#### flex-flow: Sirve para establecer filas y envolverlas
+- **flex-flow:** Acepta las propiedades de **flex-direction** y **flex-wrap**
+
+#### align-content: Establece múltiples lineas cuando están separadas una de otras
+- **flex-start:** Las líneas se posicionan en la parte superior del contenedor.
+- **flex-end:** Las líneas se posicionan en la parte inferior del contenedor.
+- **center:** Las líneas se posicionan en el centro (verticalmente hablando) del contenedor.
+- **space-between:** Las líneas se muestran con la misma distancia entre ellas.
+- **space-around:** Las líneas se muestran con la misma separación alrededor de ellas.
+- **stretch:** Las líneas se estiran para ajustarse al contenedor.

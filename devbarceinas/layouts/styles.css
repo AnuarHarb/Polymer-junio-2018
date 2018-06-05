@@ -45,7 +45,6 @@
 }
 
 /* Flexbox */
-
 .navbar--flex {
     align-items: center; /*Vertical*/
     background-color: var(--brand-color);
