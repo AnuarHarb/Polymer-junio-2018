@@ -38,9 +38,10 @@
 
 .navbar__link,
 .navbar__link--flex,
-.navbar__link--grid {
+.navbar__link--grid,
+.navbar__link--mobile {
     text-decoration: none;
-    font-size: 25px;
+    font-size: 20px;
     color: var(--brand-white);
 }
 
@@ -76,4 +77,31 @@
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     text-align: center;
+}
+
+/*RESPONSIVE DISGIN*/
+
+
+.navbar--mobile {
+    background-color: var(--brand-color);
+    height: var(--nav-height);
+}
+
+.navbar__list--mobile {
+    display: none;
+}
+
+@media screen and (min-width:425px) {
+    .navbar--mobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .navbar__list--mobile {
+        list-style: none;
+        display: flex;
+        justify-content: space-around;
+        width: 
+    }
 }
