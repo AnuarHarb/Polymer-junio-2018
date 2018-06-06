@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de Layouts</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul class="navbar__list">
+            <li class="navbar__item">
+                <a class="navbar__link" href="">Home</a>
+            </li>
+            <li class="navbar__item">
+                <a class="navbar__link" href="">About us</a>
+            </li>
+            <li class="navbar__item">
+                <a class="navbar__link" href="">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <br>
+    <hr>
+    <br>
+
+    <nav class="navbar--flex">
+        <ul class="navbar__list--flex">
+            <li class="navbar__item--flex">
+                <a class="navbar__link--flex" href="">Flexbox</a>
+            </li>
+            <li class="navbar__item--flex">
+                <a class="navbar__link--flex" href="">About us</a>
+            </li>
+            <li class="navbar__item--flex">
+                <a class="navbar__link--flex" href="">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <br>
+    <hr>
+    <br>
+
+    <nav class="navbar--grid">
+        <!-- ALs columnas ser alimentan en orden de aparición al columano del padre o mediante grid-column l1/l2-->
+        <ul class="navbar__list--grid">
+            <li class="navbar__item--grid">
+                <a class="navbar__link--grid" href="">Grid</a>
+            </li>
+            <li class="navbar__item--grid">
+                <a class="navbar__link--grid" href="">About us</a>
+            </li>
+            <li class="navbar__item--grid">
+                <a class="navbar__link--grid" href="">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <br>
+    <hr>
+    <br>
+
+    <nav class="navbar--mobile">
+        <ul class="navbar__list--mobile">
+            <li class="navbar__item--mobile">
+                <a class="navbar__link--mobile" href="">Mobile</a>
+            </li>
+            <li class="navbar__item--mobile">
+                <a class="navbar__link--mobile" href="">About us</a>
+            </li>
+            <li class="navbar__item--mobile">
+                <a class="navbar__link--mobile" href="">Contact</a>
+            </li>
+        </ul>
+
+        <button class="navbar__menu--mobile toggleSidenav">Menú</button>
+
+    </nav>
+
+    <nav class="sidenav">
+        <span class="toggleSidenav">x</span>
+        <ul class="sidenav__list">
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Mobile</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">About us</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <script src="index.js" async></script>
+
+</body>
+
+</html>
