@@ -1,0 +1,89 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+    --brand-color: #9E9482;
+    --hamburger-color: #B4BABA;
+    --title-bikes: #B59891;
+    --title-white: #eee;
+    --size-text: 25px;
+}
+
+.navbar{
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--brand-color);
+    height: 60px;
+}
+
+.navbar__bar{
+    display: flex;
+    color: var(--hamburger-color);
+    font-size: 35px;
+    align-items: center;
+    padding: 20px;
+}
+
+.title--bikes {
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    background-color: var(--title-bikes);
+}
+
+.title__hill {
+    display: flex;
+    align-items: center;
+    color: var(--title-white);
+    font-size: 50px;
+}
+
+/*images*/
+.section--bikes {
+    display: flex;
+    justify-content: center;
+    padding-top: 45px;
+}
+
+.section__bike--one {
+    padding: 0px 5px;
+    width: 200px;
+}
+
+.section__text {
+    text-align: center;
+    padding-top: 25px;
+}
+
+.section__p {
+    height: 10px;
+    font-size: var(--size-text);
+}
+
+.section__description {
+    padding: 5px;
+    font-size: 20px;
+}
+
+.section--button {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.section__button--style {
+    font-size: 40px;
+    padding: 20px;
+    color: #eee;
+    background-color: #3DB04F;
+    border-radius: 5px;
+}
+
+
+
