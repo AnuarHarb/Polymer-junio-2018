@@ -1,0 +1,146 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+:root{
+    --brand-color: #00ff00;
+    --brand-red: #ff0000;
+    --nav-height: 80px;
+}
+.navbar{
+    background-color: var(--brand-color);
+    height: var(--nav-height);
+}
+
+.navbar__list{
+    list-style: none;
+    text-align: center;
+    padding: calc((var(--nav-height)-50px)/2) 0;
+}
+
+.navbar__item{
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+.navbar__link, .navbar__link--flex, .navbar__link--grid, .navbar__link--mobile{
+    color: var(--brand-red);
+    font-size: 30px;
+    text-decoration: none;
+}
+
+
+/*FlexBox*/
+
+.navbar--flex{
+    background-color: var(--brand-color);
+    display: flex;
+    height: var(--nav-height);
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar__list--flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 350px;
+    list-style: none;
+}
+
+
+/*GRID*/
+.navbar--grid{
+    background-color: var(--brand-color);
+    display: grid;
+    height: var(--nav-height);
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+.navbar__list--grid{
+    display: grid;
+    list-style: none;
+    grid-template-columns: repeat(3,1fr);
+    grid-column: 2/3;
+    text-align: center;
+    align-items: center;
+}
+
+
+/*MOBILE*/
+.navbar--mobile{
+    align-items: center;
+    background-color: var(--brand-color);
+    height: var(--nav-height);
+    justify-content: center;
+}
+
+.navbar__list--mobile{
+    display: none;
+}
+
+.navbar__menu--mobile{
+    background-color: transparent;
+    border: 1px solid red;
+    color: red;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: transform .8s;
+}
+
+.navbar__menu--mobile:focus{
+    outline: none;
+}
+
+.navbar__menu--mobile:active{
+    background-color: red;
+    color: black;
+    transform: translateY(3px);
+}
+
+.sidenav{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: grey;
+    right: 0;
+    width: 3000px;
+    transition: right .8s;
+}
+
+.sidenav__list{
+    align-items: center;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    justify-content: space-around;
+}
+
+.sidenav__item{
+    font-size: 25px;
+    text-decoration: none;
+}
+
+.sidenav--open {
+    right: 0;
+}
+
+@media screen and (min-width:426px){
+    .navbar--mobile{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .navbar__list--mobile{
+        display: flex;
+        list-style: none;
+        justify-content: space-around;
+        width: 350px;
+    }
+
+    .navbar__menu--mobile{
+        display: none;
+    }
+}
