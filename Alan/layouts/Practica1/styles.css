@@ -161,7 +161,7 @@ img{
         display: flex;
         border-radius: 5px;
         height: 15px;
-        margin: 0 0 0 60px
+        margin: 0 30px 0 60px
     }
 
     .menu-button{
@@ -190,17 +190,30 @@ img{
 
     .nav__text{
         display: flex;
-        height: 70px;
-        margin: var(--margin);
+        height: 100px;
+        margin: 30px;
         justify-content: center;
         width: 100%;
     }
 
-    .cita{
+    .content__cita{
         height: 100px;
+        width: 100%;
+        margin: 0 50px 0 0;
+    }
+
+    .cita{
+        height: 80px;
         font-size: 25px;
         color: black;
         text-align: center;
+    }
+
+    .autor{
+        height: 50px;
+        width: 100%;
+        text-align: center;
+        font-size: 10px;
     }
 }
 
@@ -236,7 +249,8 @@ img{
     }
 
     .title{
-        width: 25%;
+        text-align: center;
+        width: 150px;
         font-size: 30px;
     }
 
@@ -244,7 +258,7 @@ img{
         display: flex;
         border-radius: 5px;
         height: 15px;
-        margin: 0 0 0 60px
+        margin: 0 30px 0 60px
     }
 
     .menu-button{
@@ -255,8 +269,7 @@ img{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         height: 270px;
-        margin: var(--margin);
-        margin: 30px var(--margin);
+        margin: 30px 25px;
         justify-content: center;
         width: 100%;
     }
@@ -275,16 +288,30 @@ img{
         display: grid;
         grid-template-columns: 1fr 2fr;
         height: 200px;
-        margin: var(--margin);
-        justify-content: center;
+        margin: 30px;
         width: 100%;
     }
 
+    .content__cita{
+        height: 200px;
+        width: 100%;
+        margin: 0 50px 0 0;
+    }
+
     .cita{
-        height: 100px;
+        height: 80px;
         font-size: 20px;
         color: black;
-        margin: 30px;
+        width: 100%;
+        margin: 10px 0 0 0;
+        text-align: left;
+    }
+
+    .autor{
+        height: 50px;
+        width: 100%;
+        text-align: right;
+        font-size: 10px;
     }
 
     .content__img--text{
