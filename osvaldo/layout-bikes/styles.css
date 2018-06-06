@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,700');
 
+
 body {
     font-family: "Poppins";
+    margin: 0;
 }
 
 :root {
@@ -12,10 +14,49 @@ body {
 }
 
 
-.navbar--mobile {
+.navbar--desktop {
     background-color: var(--tree-green);
     color: var(--white);
+    height: 100px;
+    display: grid;
+    grid-template-columns: 5fr 2fr 2fr;
 }
+.navbar--links{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navbar__search-input-container , .navbar__search-icon {
+    display: flex;
+    align-items: center;
+}
+
+.navbar--search-input {
+    width: 100%;
+    border-radius: 10px;
+    height: 20px;
+}
+
+.navbar--mobile {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    width: 250px;
+}
+
+.navbar--links-container {
+    display: flex;
+    flex-direction: column;
+}
+
 
 .hero {
     color: var(--white);
@@ -41,13 +82,28 @@ body {
 }
 .card {
     width: 300px;
-    height: 350px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 90px 50px 150px;
     outline: 2px solid rebeccapurple;
 }
-
+.card__image-container {
+    overflow: hidden;
+}
 .card__image {
-    object-fit: cover;
+   grid-column-start: 1;
+   width: 100%;
 
+}
+
+.card__title {
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.card__description {
+  grid-column-start: 1;
+  grid-row: 3/4;
 }
 
 /* .card__image-container {

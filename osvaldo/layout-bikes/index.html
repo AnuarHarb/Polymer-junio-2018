@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <nav class="navbar--mobile">
+    <nav class="navbar--desktop">
         <ul class="navbar--links">
             <li class="navbar--item">
                 <a class="navbar__link">Home</a>
@@ -28,8 +28,19 @@
             </li>
         </ul>
 
-        <input type="text" class="navbar--search-input" id="">
-        <i class="fas fa-search"></i>
+        <div class="navbar--mobile">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="navbar--links-container">
+                <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+            </div>
+        </div>
+
+        <div class="navbar__search-input-container"><input type="text" class="navbar--search-input" id=""></div>
+
+        <div class="navbar__search-icon"><i class="fas fa-search"></i></div>
 
     </nav>
 
@@ -43,7 +54,7 @@
                         <img class="card__image" src="https://images.unsplash.com/photo-1452727229762-7380dd7ba044?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ead50dad548d981b87fe36445a2c8101&auto=format&fit=crop&w=800&q=60"
                             alt="" srcset="" class="card__image">
                     </div>
-                    <h4 class="card__title"></h4>
+                    <h4 class="card__title">Bicicleta</h4>
                     <div>
                         <p class="card__description">Smallest bicycle ever made has wheels of the size of silver dollars.</p>
                     </div>
@@ -54,7 +65,7 @@
                         <img class="card__image" src="https://images.unsplash.com/photo-1521925033579-50964452844a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=65351d2f22bb32d6d112351677f8801a&auto=format&fit=crop&w=2250&q=80"
                             alt="" srcset="" class="card__image">
                     </div>
-                    <h4 class="card__title"></h4>
+                    <h4 class="card__title">La mejor bicicleta</h4>
                     <div>
                         <p class="card__description">Smallest bicycle ever made has wheels of the size of silver dollars.</p>
                     </div>
@@ -65,7 +76,7 @@
                         <img class="card__image" src="https://images.unsplash.com/photo-1472709171579-139831cdf19e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=25a9c4ab5d735c584de85716cacbe6de&auto=format&fit=crop&w=2250&q=80"
                             alt="" srcset="" class="card__image">
                     </div>
-                    <h4 class="card__title"></h4>
+                    <h4 class="card__title">Four wheels</h4>
                     <div>
                         <p class="card__description">Smallest bicycle ever made has wheels of the size of silver dollars.</p>
                     </div>
@@ -76,9 +87,9 @@
                         <img class="card__image" src="https://images.unsplash.com/photo-1474552028796-8d1a00327610?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f05f6ff0ecd5c9f6323b11b086deec75&auto=format&fit=crop&w=2805&q=80"
                             alt="" srcset="" class="card__image">
                     </div>
-                    <h4 class="card__title"></h4>
-                    <div>
-                        <p class="card__description">Smallest bicycle ever made has wheels of the size of silver dollars.</p>
+                    <h4 class="card__title">On the road</h4>
+                    <div class="card__description">
+                        <p>Smallest bicycle ever made has wheels of the size of silver dollars.</p>
                     </div>
                 </div>
     </div>
