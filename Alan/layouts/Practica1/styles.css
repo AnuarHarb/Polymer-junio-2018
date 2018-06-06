@@ -284,11 +284,31 @@ img{
         height: 100px;
         font-size: 20px;
         color: black;
+        margin: 30px;
     }
 
-    .content__img--tex{
+    .content__img--text{
         display: flex;
-        justify-content: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .title__image{
+        display: flex;
+        justify-content: center;
+        height: 30px;
+        width: 100%;
+    }
+
+    h4{
+        color: var(--brans-green);
+    }
+
+    .nav__img--text{
+        display: flex;
+        justify-content: center;
+        height: 150px;
         width: 100%;
     }
 
@@ -298,9 +318,9 @@ img{
     }
 
     .text__img{
-        width: 50px;
+        width: 50%;
         height: 50px;
-        font-size: 20px;
+        font-size: 15px;
     }
        
 }
