@@ -1,0 +1,16 @@
+:root {
+    --progress:0%;
+}
+
+.loader {
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    width: var(--progress);
+    background-color: blue;
+    transition: all 1s ease-out;
+}
+
+.dog {
+    display: none;
+}
