@@ -12,8 +12,10 @@
 <body>
     <header>
         <!-- Navbar in mobile -->
-        <nav class="navbar__superior--mobile"> 
-            <button><i class="material-icons" id="menu__btn">&#xe3c7;</i></button>
+        <nav class="navbar__superior--mobile">
+            <button class="navbar__menu--mobile toggleSidenav">
+                <i class="material-icons" id="menu__btn">&#xe3c7;</i>
+            </button>
         </nav>
 
         <!-- Navbar in tablet and desktop -->
@@ -39,7 +41,9 @@
             <ul class="navbar__actions--desktop">
                 <li>
                     <input id="search__input" type="text">
-                    <button><i class="material-icons" id="search__btn">search</i></button>
+                    <button>
+                        <i class="material-icons" id="search__btn">search</i>
+                    </button>
                 </li>
             </ul>
         </nav>
@@ -86,8 +90,10 @@
             <div class="last__article">
                 <h3 class="lartilce__title green__text">From the blog: Struck by Lightining</h3>
                 <div class="lastarticle__text">
-                    <p>How do you improve upon a great boike series? We wanted to outpace the competition, so we developed 
-                        our speediest bike to date. The new Lightining... <br> <a class="blue__anchor" href="">Read more</a>
+                    <p>How do you improve upon a great boike series? We wanted to outpace the competition, so we developed our
+                        speediest bike to date. The new Lightining...
+                        <br>
+                        <a class="blue__anchor" href="">Read more</a>
                     </p>
                 </div>
                 <div class="lastarticle__image">
@@ -101,6 +107,29 @@
         </div>
 
     </main>
+
+    <nav class="sidenav">
+        <span class="toggleSidenav">x</span>
+        <ul class="sidenav__list">
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Home</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Shop</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Specialist</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Support</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Cycling Club</a>
+            </li>
+        </ul>
+    </nav>
+
+    <script src="index.js" async></script>
 
 </body>
 

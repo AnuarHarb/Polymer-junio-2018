@@ -1,7 +1,24 @@
+/*  General styles for elements along the page */
+
 body {
     margin: 0;
     font-family: 'Roboto', 'Noto', sans-serif;
 }
+
+h1 {
+    margin: 0;
+    font-weight: normal;
+}
+
+h3 {
+    margin: 0;
+}
+
+ul {
+    padding: 0;
+}
+
+/*  CSS variables */
 
 :root {
     --brand-color: #79716F;
@@ -12,6 +29,8 @@ body {
     --green-app: #6fae62;
     --bard-white: #fafafa;
 } 
+
+/* Class styles */
 
 .navbar__superior--mobile {
     display: flex;
@@ -39,19 +58,6 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 1em;
-}
-
-h1 {
-    margin: 0;
-    font-weight: normal;
-}
-
-h3 {
-    margin: 0;
-}
-
-ul {
-    padding: 0;
 }
 
 .navbar__title {
@@ -96,6 +102,35 @@ ul {
 
 .article__preview {
     text-align: left;
+}
+
+.sidenav {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    background-color: var(--bard-white);
+    bottom: 0;
+    width: 300px;
+    transition: right .8s;
+}
+
+.sidenav--open {
+    right: 0;
+}
+
+.sidenav__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 200px;
+}
+
+.sidenav__link {
+    font-size: 20px;
+    text-decoration: none;
+    color: var(--green-app);
 }
 
 
