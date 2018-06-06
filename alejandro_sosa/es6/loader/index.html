@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Loader</title>
+</head>
+<body>
+	<style type="text/css">
+		.loader{
+			width:0;
+			height: 50px;
+			background:lime;
+			transition: width .4s;
+		}
+		button{margin-left:30px;}
+	</style>
+	<div id="loader" class="loader"></div>
+	<h2 id="message"></h2>
+	<input id="speed" type="text" value=".4">
+	<label><input id="random" type="checkbox"> Random?</label>
+	<button id="button">Download</button>
+
+	<script type="text/javascript">
+		(function(){
+			const _loader  = document.getElementById('loader');
+			const _speed   = document.getElementById('speed');
+			const _button  = document.getElementById('button');
+			const _message = document.getElementById('message');
+			const _random  = document.getElementById('random');
+			const MAX_CHARGE = 20;
+			const MIN_CHARGE = 2;
+			const MAX_WIDTH = 100;
+			const MIN_SPEED = .5;
+			const MAX_SPEED = 2;
+
+			function fillLoader( ){
+				let width = 0;
+				let cycle;
+				let speed =  +_speed.value || MIN_SPEED;
+
+				if( _random.checked ){
+					speed = (Math.random()*MAX_SPEED) + MIN_SPEED;
+					_speed.value = '';
+				}
+				
+				function loadCycle( ){
+					width += (Math.random()*MAX_CHARGE) + MIN_CHARGE; 
+					if( width >= MAX_WIDTH ){
+						clearInterval( cycle );
+						loadComplete();
+						width = MAX_WIDTH;
+					}
+					_loader.style.width = width+'%';
+				}
+
+				// Complete Message
+				function loadComplete( ){
+					_message.innerHTML = 'Descarga Completa!!'
+				}
+				// Start Download
+				console.info( 'speed '+(speed*1000) );
+				cycle = setInterval(loadCycle, speed*1000);
+			}
+
+			_button.addEventListener('click', fillLoader );
+
+		})();
+
+
+	</script>
+</body>
+</html>
