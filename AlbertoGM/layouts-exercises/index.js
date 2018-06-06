@@ -5,6 +5,14 @@
     const menu = document.querySelector('.menu__mobile');
     const menu_scrim = document.querySelector('.menu__mobile--scrim');
     const menu_panel = document.querySelector('.menu__mobile--panel');
+
+    window.onresize = function(/*event*/) {
+        menu.removeAttribute('opened');
+            menu_scrim.removeAttribute('opened');
+            menu_panel.removeAttribute('opened');
+    };
+
+    
     menu_icon.addEventListener('click',()=>{
         if(menu.hasAttribute('opened')){
             menu.removeAttribute('opened');
