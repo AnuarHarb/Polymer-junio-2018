@@ -68,13 +68,11 @@
     padding: var(--margin);
 }
 
-
 .nav__content1, .nav__content2{
     display: flex;
     align-items: flex-start;
     flex-direction: row;
     justify-content: center;
-    display: flex;
     width: 150px;
     height: 350px;
 }
@@ -221,6 +219,7 @@ img{
     .menu{
         justify-content: space-between;
     }
+
     .menu-button1, .menu-button2, .menu-button3, .menu-button4, .menu-button5{
         display: flex;
         background-color: transparent;
