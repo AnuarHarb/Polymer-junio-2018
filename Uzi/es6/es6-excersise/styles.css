@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+}
+
+.button__container {
+    padding: 1em;
+    text-align: center;
+}
+
+.success__img {
+    width: 100%;
+    max-width: 250px;
+    display: none;
+}
+
+.main__button {
+    text-align: center;
+}
+
+.loader {
+    height: 6px;
+    background-color: red;
+    width: 0px;
+    max-width: 100%;
+}
