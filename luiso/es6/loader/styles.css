@@ -1,0 +1,38 @@
+body{
+    display: flex;
+    font-family: Georgia, sans-serif;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.button--crazy{
+    text-decoration: none;
+    color: white;
+    width: 200px;
+    height: 100px;
+    background: red;
+    position: relative;
+    margin: 30px;
+    top: 100px;
+    padding: 16px;
+    font-size: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 15px 0px 0px darkred ;
+}
+.button--crazy:active{
+    top: 108px;
+    box-shadow: 0px 7px 0px 0px darkred;
+}
+.image--done{
+    display: none;
+}
+.footer--onbottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}
