@@ -12,13 +12,14 @@
     button.addEventListener('click', () => {
 
         proceso = setInterval(rellenado, velocidad);
+        //proceso=setTimeout(rellenado, velocidad);
 
     });
 
     function rellenado(){
         relleno = relleno + newRelleno();
         velocidad=newVelocidad();
-        if(relleno<99){
+        if(relleno<100){
             loader.style.setProperty('width', `${relleno}%`);
         }
         else{
@@ -27,11 +28,13 @@
             loader.style.setProperty('display', 'none');
             button.style.setProperty('display', 'none');
             clearInterval(proceso);
-        }      
+        }
+        //clearInterval(proceso);
+        //clearTimeout(proceso); 
     }
 
     function newVelocidad(){
-        return (Math.round(Math.random()*3)*1000);
+        return (Math.round(Math.random()*2)*1000);
     }
     
     function newRelleno(){

@@ -6,13 +6,13 @@
 :root{
     --brand-red: #ff0000;
     --brans-green: #00ff00;
-    --porcentaje: 0%;
 }
 
 .relleno{
     height:24px;
-    width: var(--porcentaje);
     background-color: var(--brand-red);
+    width: 0%;
+    transition: width 1.2s;
 }
 
 .nav__button{
