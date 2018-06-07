@@ -1,69 +1,35 @@
+let loaderBar = document.querySelector(".loader");
+let buttonStart = document.querySelector(".button-start");
+let buttonReset = document.querySelector(".button-reset")
+buttonStart.addEventListener("click", startLoader);
+buttonReset.addEventListener("click", resetLoader);
 
-(function () {
-    let loaderBar = document.querySelector(".loader");
-    let button = document.querySelector("button");
-    button.addEventListener("click", startLoader);
+let intervalo = 1000;
+let percentage = 2;
+let loaderOnPause = true;
 
-    let percentage = 0;
 
-    function setRandomInterval() {
-        return Math.floor((Math.random() * 10) + 5);
-    }
+function startLoader() {
+    loaderOnPause = false;
 
-    function startLoader() {
-        alert("hi")
-        while (percentage < 120) {
-            myFunc()
-
-        }
-
-    }
-
-    function myFunc() {
-        setInterval(function () {
-            aconsole.log(percentage)
-            percentage += 20
-        }, 3000);
-    }
-
-    function getNumBetween2And6() {
-        let num = Math.floor((Math.random() * 5) + 1);
-        if (isOddNumer(num)) { num++ };
-        console.log(num);
-        return num;
-    }
-
-    function runLoader() {
-        if (percentage < 120) {
+    setInterval(function () {
+        if (percentage < 100 && !loaderOnPause) {
+            intervalo = (Math.floor((Math.random() * 5) + 1)) * 500;
+            percentage += getRandomNum();
             loaderBar.style.setProperty('--progress', `${percentage}%`);
-            percentage += setRandomInterval();
-            if (percentage > 120) {
-                document.querySelector(".dog").style.display = "block";
-            }
+            if (percentage >= 100) { document.querySelector(".dog").style.display = "block"; }
         }
-    }
+    }, intervalo);
+}
 
-    function incrementLoader(num) {
-        loaderBar.style.setProperty('--progress', `${percentage}%`);
-    }
+function getRandomNum() {
+    return Math.floor((Math.random() * 10) + 1);
+}
 
-    function incrementPercentage(num) {
-        percentage = percentage + num;
-    }
-
-    function isOddNumer(num) {
-        if (num % 2 !== 0) {
-            return true
-        }
-    }
-
-
-
-
-
-
-})()
-
-
-
+function resetLoader() {
+    percentage = 0;
+    loaderOnPause = true;
+    loaderBar.style.setProperty('--progress', `${percentage}%`);
+    document.querySelector(".dog").style.display = "none";
+}
 
