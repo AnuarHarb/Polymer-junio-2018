@@ -3,13 +3,11 @@
     var time;
     var interval;
 
-
     const btn = document.querySelector('.startLoader');
+    const bar = document.querySelector('.progress__bar');
+    const value = document.querySelector('.barvalue');
+
     btn.addEventListener('click',()=> {
-
-
-        const bar = document.querySelector('.progress__bar');
-        const value = document.querySelector('.barvalue');
 
         bar.value= 0;
         value.innerHTML = bar.value + '%';
@@ -17,6 +15,7 @@
         function getRandomInterval(min, max) {
             return Math.floor(Math.random() * ((max - min) + min));
         }
+
         function getRandomTime(min, max) {
             return Math.floor((Math.random() * ((max - min) + min))/60);
         }
