@@ -35,3 +35,10 @@ html {
     transition: width 2s;
     background-color: #428CFF;
 }
+
+.loader__message--style {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    color: #46B29D;
+}
