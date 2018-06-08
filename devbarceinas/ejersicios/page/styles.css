@@ -61,7 +61,7 @@ html {
     padding-top: 25px;
 }
 
-.section__p {
+.name__article {
     height: 10px;
     font-size: var(--size-text);
 }
