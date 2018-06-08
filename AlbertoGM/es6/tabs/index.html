@@ -13,10 +13,10 @@
         <div class="tabs">
             <div class="tabs--top"></div>
             <div class="tabs--content">
-                <div class="tabs__tab">
-                    <div class="tabs__tab--content" selected >
+                <div id="tab__0" class="tabs__tab" >
+                    <div class="tabs__tab--content" selected onclick="onDefaultTab()" >
                         <div class="tabs__tab--icon">
-                            <img >
+                            <img>
                         </div>
                         <div class="tabs__tab--title">Home</div>
                         <div class=""></div>
@@ -26,20 +26,21 @@
             <div class="tabs--bottom"></div>
         </div>
         <div class="pages">
-            <div class="pages__page--content" open>
+            <div id="page__0" class="pages__page--content" open>
                 <h1> !WELCOME! </h1>
                 <h2> This is the main page to create tabs. </h2>
                 <p>
-                    <span>Name of the tab: <input type="text"></span>
+                    <span>Name of the tab: <input type="text" class="input__name"></span>
                 </p>
                 <p>
-                    <span>Url of the icon:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="url"></span>
+                    <span>Url of the icon:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="input__url" type="url"></span>
                 </p>
 
-                <button class="button">Crear</button>
+                <button id="buttonExec" class="button"><span>Crear</span></button>
             </div>
         </div>
     </main>
 
+    <script src="index.js" async></script>
 </body>
 </html>
