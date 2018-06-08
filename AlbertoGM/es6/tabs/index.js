@@ -51,7 +51,7 @@ class Tab {
 
         let tab = `
                      <div id="tab__${this.incId}" class="tabs__tab">
-                        <div class="tabs__tab--content" selected  onclick="onPage(document.querySelector('.pages')),onTab(document.querySelector('.tabs--content'))">
+                        <div class="tabs__tab--content" selected  onclick="onPage(document.querySelector('.pages')),onTab(document.querySelector('.tabs--content')),onSelectedTab()">
                         <div class="tabs__tab--icon">
                             <img src="${this.url}">
                         </div>
@@ -73,11 +73,11 @@ class Page {
     }
 
     get createNewPage(){
-        this.incId++;
+
 
         let page = `
                      <div id="page__${this.incId}" class="pages__page--content" open>
-                        <h1> New Page  </h1>
+                        <h1> New Page  ${this.incId}</h1>
                      </div>
         `;
 
@@ -129,3 +129,12 @@ function onDefaultTab() {
     let pagDefault = document.querySelector('#page__0');
     pagDefault.setAttribute('open','');
 }
+ function onSelectedTab() {
+     console.log('event',event);
+     let tab = event.target;
+     tab.setAttribute("selected","");
+     let id = tab.parentElement.id;
+     let onlyID = id.replace('tab__','');
+     let pag = document.querySelector('#page__'+onlyID);
+     pag.setAttribute('open','');
+ }
