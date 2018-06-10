@@ -34,11 +34,10 @@
     }
 
     function newVelocidad(){
-        return (Math.round(Math.random()*2)*1000);
+        return (Math.ceil(Math.random()*3)*1000);
     }
     
     function newRelleno(){
-        console.log(Math.round(Math.random()*20));
         return Math.round(Math.random()*15)
     }
 
