@@ -1,0 +1,92 @@
+<template id="my_template">
+    <style>
+        button {
+            background-color: red;
+            color: white;
+        }
+    </style>
+
+    <button>
+        My element button
+    </button>
+</template>
+
+<script>
+    (function myElement(customElements) {
+        'use strict'
+
+        class MyElement extends HTMLElement {
+
+            //Escucha de los atributos
+            static get observedAttributes() {
+                return ['selected'];
+            }
+
+            constructor() {
+                super(); //Super es para que tomar las propiedades del elemento del que está extendiendo
+                this.selected = true;
+
+                //En WP vanilla se tiene que declarar el shadow dom, puede ser abierto o cerrado (para acceder o prohibir el acceso)
+                const shadowRoot = this.attachShadow({ mode: 'open' });
+                const templ = document.currentScript.ownerDocument.querySelector('#my_template'); //Con currentScript accedes al template en ESTE ARCHIVO
+                shadowRoot.appendChild(document.importNode(templ.content, true)); //Insertamos el template
+
+                /*shadowRoot.innerHTML = `
+                <style>
+                    button {
+                        background-color: red;
+                        color: white;
+                    }
+                </style>
+
+                <button>
+                    My element button
+                </button>
+                `*/
+            }
+
+            //Para guardar el valor del atributo dentro de la propiedad local - Es para mandar valores de afuera hacia adentro
+            get selected() {
+                return this.getAttribute('selected');
+            }
+
+            //Refleja el cambio de la propiedad internamente hacia afuera
+            set selected(val) {
+                //Si no hubo cambio, no hagas nada para no generar un loop
+                if (this.selected == val && oldVal != newVal) {
+                    return;
+                }
+                this.setAttribute('selected', val);
+            }
+
+            //Este método observa a todos los atributos que estñan declarados arriba 
+            attributeChangeCallback(attrChange, oldVal, newVal) {
+                //Validamos si hubo cambio para no generar un loop
+                if (attrChange == 'selected') {
+                    this.selected = newVal; //Setea el nuevo valor del atributo - Cuidado! pouede generar loop
+                }
+            }
+
+            connectedCallback() {
+                this.addEventListener('click', this._onClick.bind(this)); //Evento interno, le pueden dar click a cualqquier parte del componente
+            }
+
+            _onClick() {
+                this.shadowRoot.querySelector('button').innerHTML = 'Me hicieron click';
+                // Los eventos sirven para sacar info de hijos a padres, se nombran arbitrariamente y tenemos todo el control de cuándo se dosparen
+                this.dispatchEvent(new CustomEvent('element-clicked', {
+                    bubbles: true, //Surve para que el evento suba hasta el máximo contenedor 
+
+                    //este es el objeto que pasará en el detail del evento
+                    detail: {
+                        active: true,
+                        name: "Uzi"
+                    }
+                }))
+            }
+        }
+
+        customElements.define('my-element', MyElement); //Definimos el componente
+
+    })(window.customElements); //Para no manejar todo el objeto window, solo pasamos CustomElements
+</script>

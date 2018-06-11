@@ -1,0 +1,72 @@
+<template id="my_loader">
+    <style>
+        .loader {
+            height: 6px;
+            background-color: red;
+            width: 0px;
+            max-width: 100%;
+        }
+    </style>
+
+    <div class="loader"></div>
+
+</template>
+
+<script>
+    (function myElement(customElements) {
+        'use strict'
+
+        class MyLoader extends HTMLElement {
+
+            static get observedAttributes() {
+                return ['speed'];
+            }
+
+            constructor() {
+                super();
+                this.speed;
+
+                const shadowRoot = this.attachShadow({ mode: 'open' });
+                const templ = document.currentScript.ownerDocument.querySelector('#my_loader'); 
+                shadowRoot.appendChild(document.importNode(templ.content, true)); 
+            }
+
+            get speed() {
+                return this.getAttribute('speed');
+            }
+
+            set speed(val) {
+                if (this.speed == val && oldVal != newVal) {
+                    return;
+                }
+                this.setAttribute('speed', val);
+            }
+
+            attributeChangeCallback(attrChange, oldVal, newVal) {
+                if (attrChange == 'speed') {
+                    this.speed = newVal;
+                }
+            }
+
+            _startLoader() {
+                const loader = this.shadowRoot.querySelector('.loader');
+
+                loader.addEventListener('transitionend', (event) => {
+                    this.dispatchEvent(new CustomEvent('loader-done', {}));
+                });
+
+                for (let width = 0; width < 101; width++) {
+                    let randomWidth = Math.ceil((Math.random()) * 10);
+                    width = width + randomWidth;
+                    loader.style.width = `calc(${width}%)`;
+                    loader.style.transition = `width ${this.speed}s`
+                    console.log(`Ancho agregado en este ciclo: ${width}`);
+                }
+                console.log(`Tiempo: ${this.speed}`);
+            }
+        }
+
+        customElements.define('my-loader', MyLoader);
+
+    })(window.customElements);
+</script>

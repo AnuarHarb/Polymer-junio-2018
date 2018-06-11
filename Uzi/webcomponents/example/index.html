@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="import" href="my-element.html">
+</head>
+<body>
+    <my-element></my-element>
+
+    <script>
+        const element = document.querySelector('my-element');
+        element.addEventListener('element-clicked', (event) => {
+            console.log(event.detail);
+        })
+    </script> 
+</body>
+</html>

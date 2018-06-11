@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Loader Component</title>
+    <link rel="import" href="my-loader.html">
+</head>
+
+<body>
+    <my-loader speed="100"></my-loader>
+
+    <div class="button__container">
+        Speed:
+        <input type="text" id="my__input">
+        <br> <br>
+        <button class="main__button">Click for load :)</button>
+        <br>
+        <img class="success__img" src="giphy.gif" alt="">
+    </div>
+</body>
+
+<script>
+    const button = document.querySelector('.main__button');
+    const element = document.querySelector('my-loader');
+    const img = document.querySelector('.success__img');
+    const input = document.querySelector('#my__input');
+
+
+    button.addEventListener('click', () => {
+        // element.speed = "10"
+        element.setAttribute('speed', input.value);
+        element._startLoader();
+    });
+
+    element.addEventListener('loader-done', (event) => {
+        button.style.display = 'none';
+        img.style.display = 'initial';
+    })
+</script>
+
+</html>
