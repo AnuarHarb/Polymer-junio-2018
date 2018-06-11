@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+}
+
+.hidden__div {
+    display: none;
+}
+
+.tabs__ul {
+    padding: 1em;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-bottom: 1px black solid;
+}
+
+.tab:hover {
+    cursor: pointer;
+}
+
+.container {
+    padding: 1em;
+}
