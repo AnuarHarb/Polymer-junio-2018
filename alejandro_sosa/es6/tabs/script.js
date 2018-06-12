@@ -10,8 +10,6 @@
         }
 
         create(){
-            //tabContent
-            //<li class="tab__navItem">Create a Tab</li>
             tabContent.appendChild( this.createEl( tabContent, 'DIV', "tab__contentItem", this.content ));
             tabNav.appendChild( this.createEl( tabNav, 'LI', "tab__navItem", this.label ));
         }

@@ -1,0 +1,84 @@
+<template id="test_loader_tpl">
+	<style>
+		.loader{
+			width:0;
+			min-height: 10px;
+			background:lime;
+			transition: width .4s;
+		}
+	</style>
+	<div class="loader"></div>
+</template>
+<script>
+	
+	(function(){
+		'use strict';
+		
+		class TestLoader extends HTMLElement {
+			static get observedAttributes() {
+				return ['speed'];
+			}
+			attributeChangedCallback(name, oldVal, newVal) { // escucha el cambio de atributo
+				if(name === 'speed' && oldVal !== newVal) {
+					this.speed = newVal;
+				}
+			}
+			
+			constructor(){
+				super();
+
+				this.speed = 1;
+				this.start = 0;
+				this.value = 0;
+				
+				const shadow = this.attachShadow({mode:'open'});
+				const tpl = document.currentScript.ownerDocument.querySelector('#test_loader_tpl');
+				shadow.appendChild(document.importNode(tpl.content, true));
+				
+				this.bar = shadow.querySelector('.loader');
+			}
+
+			get speed(){
+				return this.getAttribute('speed');
+			}
+			set speed( val ){
+				if( this.speed != val){
+					this.setAttribute('speed', val);
+				}
+			}
+
+			_updatePercent( ){
+				this.value += Math.round(Math.random()*30);
+				console.info( this.value );
+				if( this.value > 100 ){
+					this.value = 100;
+				}
+				
+				this.bar.style.width = this.value+'%';
+				if( this.value < 100 ){
+					setTimeout(this._updatePercent.bind(this), this.speed*1000);
+				}else{
+					setTimeout(this.finishLoad.bind(this), this.speed*1000);
+				}
+			}
+
+			finishLoad(){
+				this.dispatchEvent( new CustomEvent('finish',{}) );
+			}
+
+			startLoad( _from ){
+				this.value = 0;
+				this.bar.width = 0;
+				console.info('start BAR', this.bar)
+				this.bar.style.transitionDuration = this.speed + 's';
+				this._updatePercent();
+			}
+
+			connectedCallback( ){
+				this.value = this.getAttribute('value') || 0;
+			}
+		}
+		customElements.define('test-loader', TestLoader);
+	})();
+
+</script>

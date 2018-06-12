@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="import" href="test-loader.html">
+</head>
+<body>
+	<test-loader speed="4"></test-loader>
+	<hr>
+	<input type="number" id="input" placeholder="Download Speed" min="0" >
+	<button id="btn">Download</button>
+	<h2 id="message"></h2>
+	<script type="text/javascript">
+		var bar = document.querySelector('test-loader');
+		var btn = document.getElementById('btn');
+		var message = document.getElementById('message');
+		var speed = document.getElementById('input');
+
+		speed.addEventListener('focusout', function(){
+			bar.setAttribute('speed', this.value);
+		});
+
+		btn.addEventListener('click', function(){
+			message.innerHTML = '';
+			bar.startLoad();
+		});
+
+		bar.addEventListener('finish', function(){
+			message.innerHTML = 'Descarga Completa!';
+		});
+	</script>
+</body>
+</html>
