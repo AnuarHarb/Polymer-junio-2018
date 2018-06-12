@@ -1,0 +1,65 @@
+<template id="myTemplate">
+    <style>
+        button{
+            background-color: red;
+            color: white;
+        }
+    </style>
+    <button>My button</button>
+</template>
+<script>
+
+    (function myElement(customElements) {
+        'use strict';
+
+        class MyElement extends HTMLElement {
+
+            static get observedAttributes(){
+
+                return ['selected'];
+            }
+
+            //properies
+            constructor(){
+                super();
+
+                this.mySelected = true;
+                const shadowRoot = this.attachShadow({mode:'open'});
+                const templ = document.currentScript.ownerDocument.querySelector('#myTemplate');
+                shadowRoot.appendChild(document.importNode(templ.content,true));
+            }
+
+            get selected(){
+                return this.getAttribute('selected');
+            }
+
+            set selected(value){
+                this.setAttribute('selected',value);
+            }
+
+            attributeChangeCallback(attrChange,oldVal,newVal){
+                if(attrChange === 'selected' && oldVal !== newVal){
+                    this.selected = newVal;
+                }
+
+            }
+
+            connectedCallback(){
+                this.addEventListener('click',this._onClick.bind(this));
+            }
+
+            _onClick(){
+
+                this.shadowRoot.querySelector('button').innerHTML = 'They clicked me';
+
+                this.dispatchEvent(new CustomEvent('element-clicked',{bubbles: true, composed: true,detail:{name:"alberto"}}));
+
+
+            }
+
+
+        }
+
+        customElements.define('my-element',MyElement)
+    })(window.customElements);
+</script>
