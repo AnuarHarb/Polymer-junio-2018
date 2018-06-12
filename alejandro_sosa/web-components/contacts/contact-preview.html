@@ -1,0 +1,103 @@
+<template id="contact_preview_tpl">
+	<style>
+		:host{
+			font-size: 1.4em;
+		}
+		.card{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			padding:10px;
+			background: #fbfafa;
+			box-shadow: 0 4px 6px -8px rgba(0,0,0,.4);
+			transition: box-shadow .6s;
+		}
+		.list{
+			list-style: none;
+			margin:40px;
+			padding: 0;
+			width:100%;
+			text-align:center;
+		}
+		.img{
+			margin: 0px;
+			width:200px;
+			height:240px;
+			border: 1px solid #fff;
+			background: #cacaca;
+		}
+		.list-item + .list-item{
+			margin-top: 30px;
+		}
+	</style>
+	<div class="card">
+		<img class="img">
+		<ul class="list">
+			<li class="list-item"><strong class="name">name</strong></li>
+			<li class="list-item tel">tel</li>
+			<li class="list-item dir">dir</li>
+		</ul>
+	</div>
+</template>
+<script>
+	
+	(function(){
+		'use strict';
+		
+		class ContactPreview extends HTMLElement {
+			static get observedAttributes() {
+				return ['data'];
+			}
+			attributeChangedCallback(attr, oldVal, newVal) { // escucha el cambio de atributo
+				if( oldVal !== newVal ){
+					this[attr] = newVal;
+					this.updateData();
+				}
+			}
+			
+			constructor(){
+				super();
+
+				this.data = '';
+				
+				const shadow = this.attachShadow({mode:'open'});
+				const tpl = document.currentScript.ownerDocument.querySelector('#contact_preview_tpl');
+				shadow.appendChild(document.importNode(tpl.content, true));
+				
+				this.$_name = shadow.querySelector('.name');
+				this.$_tel  = shadow.querySelector('.tel');
+				this.$_img  = shadow.querySelector('.img');
+				this.$_dir  = shadow.querySelector('.dir');
+			}
+
+			connectedCallback( ){
+				this.addEventListener('click', this.clicked.bind(this) );
+			}
+
+			updateData(){
+				let data = JSON.parse(this.data);
+				
+				this.$_name.innerText = data.name || '';
+				this.$_tel.innerText  = data.tel  || '';
+				this.$_dir.innerText  = data.dir  || '';
+				this.$_img.setAttribute('src', data.img);
+			}
+
+			clicked(){
+				this.dispatchEvent( new CustomEvent('pressed', {
+					bubbles: true,
+					composed: true,
+					detail:{
+						name: this.name,
+						tel:  this.tel,
+						img:  this.img,
+						dir:  this.dir
+					}
+				}))
+			}
+		}
+		customElements.define('contact-preview', ContactPreview);
+	})();
+
+</script>

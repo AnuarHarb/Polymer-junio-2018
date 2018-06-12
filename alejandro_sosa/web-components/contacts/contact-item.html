@@ -1,0 +1,113 @@
+<template id="contact_item_tpl">
+	<style>
+		:host{
+			display: block;
+		}
+		:host(:hover){
+			cursor: pointer;
+		}
+		.card{
+			display: flex;
+			align-items: center;
+			padding:10px;
+			background: #fbfafa;
+			box-shadow: 0 4px 6px -8px rgba(0,0,0,.4);
+			transition: box-shadow .6s;
+		}
+		.card:hover{
+			box-shadow: 0 4px 6px -4px rgba(0,0,0,.4);
+			transition: box-shadow .6s;
+		}
+		.list{
+			list-style: none;
+			margin:0;
+			padding: 0;
+		}
+		.img{
+			margin-right: 20px;
+			width:50px;
+			height:60px;
+			border: 1px solid #fff;
+			background: #cacaca;
+		}
+		.list-item + .list-item{
+			margin-top: 3px;
+		}
+	</style>
+	<div class="card">
+		<img class="img" >
+		<ul class="list">
+			<li class="list-item"><strong class="name"></strong></li>
+			<li class="list-item tel"></li>
+			<li class="list-item direction"></li>
+		</ul>
+	</div>
+</template>
+<script>
+	
+	(function(){
+		'use strict';
+		
+		class ContactItem extends HTMLElement {
+			static get observedAttributes() {
+				return ['name', 'tel', 'img', 'direction'];
+			}
+			attributeChangedCallback(attr, oldVal, newVal) { // escucha el cambio de atributo
+				if( oldVal !== newVal ){
+					this[attr] = newVal;
+					switch( attr ){
+						case 'name':
+							this.$_name.innerText = newVal;
+							break;
+						case 'tel':
+							this.$_tel.innerText = newVal;
+							break;
+						case 'direction':
+							this.$_dir.innerText = newVal;
+							break;
+						case 'img':
+							this.$_img.setAttribute('src', newVal);
+							break;
+					}
+				}
+			}
+			
+			constructor(){
+				super();
+
+				this.name = '';
+				this.tel  = '';
+				this.img  = '';
+				this.direction  = '';
+				
+				const shadow = this.attachShadow({mode:'open'});
+				const tpl = document.currentScript.ownerDocument.querySelector('#contact_item_tpl');
+				shadow.appendChild(document.importNode(tpl.content, true));
+				
+				this.$_name = shadow.querySelector('.name');
+				this.$_tel  = shadow.querySelector('.tel');
+				this.$_dir  = shadow.querySelector('.direction');
+				this.$_img  = shadow.querySelector('.img');
+			}
+
+			connectedCallback( ){
+				this.addEventListener('click', this.clicked.bind(this) );
+			}
+
+			clicked( ){
+				this.dispatchEvent( new CustomEvent('pressed', {
+					bubbles: true,
+					composed: true,
+					detail:{
+						name: this.name,
+						tel:  this.tel,
+						img:  this.img,
+						dir:  this.direction
+					}
+				} ) )
+			}
+		}
+		customElements.define('contact-item', ContactItem);
+	})();
+
+</script>
