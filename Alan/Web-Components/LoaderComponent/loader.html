@@ -48,20 +48,16 @@
             }
 
             attributeChangedCallback(attrChange, oldVal, newVal){
-                console.log("Si entra aqui");
                 if(attrChange == 'velocidad' && oldVal != newVal) {
                     this.velocidad = newVal;
                     this.rellenado(this.velocidad);
                 }
             }
 
-
             rellenado(velocidad){
                 let relleno = 0;
-                //this.setAttribute('relleno', this.relleno + 25);
                 let proceso = setInterval(() => {
                     relleno = relleno + this.newRelleno();
-                    console.log(relleno);
                     if(relleno<100){
                         this.shadowRoot.querySelector('.relleno').style.setProperty('width', `${relleno}%`);
                     }
@@ -75,11 +71,10 @@
             }
 
             newRelleno(){
-                return Math.round(Math.random()*15)
+                return Math.round(Math.random()*20)
             }
-
         }
 
         customElements.define('my-loader', MyLoader);
     })(window.customElements);
-    </script>
+</script>
