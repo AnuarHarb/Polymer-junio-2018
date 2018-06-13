@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  margin-top: 150px;
+  text-align: center;
+}
+
+main h2 {
+  font-family: arial;
+  text-transform:uppercase;
+}
+
+main h3 {
+  color: gray;
+  font-family: arial;
+  margin-top: 20px;
+  text-transform:uppercase;
+}
+
+main button {
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 3px;
+  color: black;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px 20px;
+  margin-top: 20px;
+}
+
+main button:hover {
+  background-color: gray;
+  color: white;
+}
+
+main button:focus {
+  outline: none;
+}
+
+#awesome {
+  display: none;
+  text-align: center;
+  width: 100%;
+}
+
+.awesome img {
+  width: 400px;
+}
+
+load-component {
+  --slider-color: blue;
+}

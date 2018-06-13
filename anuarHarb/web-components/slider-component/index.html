@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <load-component speed="fast"></load-component>
+
+  <main>
+    <h2>Become an expert web developer</h2>
+    <h2>with components!</h2>
+    <button id='load'>Do it!</button>
+  </main>
+
+  <script>
+    (function(customElements) {
+      'use strict';
+
+      class SliderElement extends HTMLElement {
+
+        static get observedAttributes() {
+          return ['speed'];
+        }
+
+        constructor() {
+          super();
+          this.speed = 8;
+
+          const shadowRoot = this.attachShadow({mode: 'open'});
+
+          shadowRoot.innerHTML = `
+          <style>
+
+            :host {
+              --slider-color: red;
+              --slider-height: 10px;
+            }
+
+            div {
+              background-color: var(--slider-color);
+              height: 10px;
+              transition: width 2s;
+              width: 0.1px;
+            }
+          </style>
+
+          <div></div>
+          `
+        }
+
+        get speed() {
+          return this.getAttribute('speed');
+        }
+
+        attributeChangedCallback(attrName, oldVal, newVal) {
+          if(attrName === 'speed' && oldVal != newVal) {
+            this.speed = newVal;
+          }
+        }
+
+        set speed(val) {
+          if (val == 'slow') {
+            this.setAttribute('speed', 8);
+            console.log('slow', this.speed);
+          } else if (val == 'fast') {
+            this.setAttribute('speed', 4);
+            console.log('fast', this.speed);
+          }
+          else {
+            this.setAttribute('speed', this.speed);
+            console.log('final Speed ' + this.speed)
+          }
+        }
+
+
+        loadFunction(nextWidth) {
+          const div = this.shadowRoot.querySelector('div')
+          let transitionTime = this.loadSpeed();
+          console.log('loadSpeed', transitionTime + 's');
+          div.style.transitionDuration = transitionTime + 's';
+          div.style.width = nextWidth + '%';
+
+          let myFunc = () => {
+            this.loadProgress(nextWidth);
+          }
+
+          setTimeout(myFunc, transitionTime*1000);
+        }
+
+        // Random transition time for animation
+        loadSpeed() {
+          console.log('Speed', this.speed)
+          let transitionTime = Math.ceil(Math.random() * this.speed);
+          return transitionTime;
+        }
+
+        // Random Progress
+        loadProgress(stepWidth) {
+          if (stepWidth >= 100) {
+            load.innerHTML = "yey!";
+            console.log('finish');
+
+          }else {
+            let nextWidth = stepWidth + Math.round(Math.random()*(100 - stepWidth));
+            console.log('Progress',stepWidth + '->' + nextWidth);
+            this.loadFunction(nextWidth);
+          }
+        }
+      }
+      customElements.define('load-component', SliderElement);
+    })(window.customElements)
+  </script>
+
+  <script>
+    document.getElementById('load').addEventListener("click", function() {
+      document.querySelector('load-component').loadProgress(0)
+
+    });
+  </script>
+</body>
+</html>
