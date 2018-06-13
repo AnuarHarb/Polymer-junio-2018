@@ -1,0 +1,117 @@
+<template id="appshell">
+    <style>
+        :host {
+
+        }
+        .appshell__header{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .appshell__body{
+            display: flex;
+            min-width: 600px;
+            margin: 0;
+            background-color: #ececec;
+            font-family: 'PT Sans', sans-serif;
+        }
+        .section{
+            width: 80%;
+            min-width: 300px;
+            position: relative;
+            padding: 5px;
+            font-size: 15px;
+            background: #d9f5d9;
+            margin: 10px;
+            display: grid;
+            grid-column: 1;
+            justify-content: center;
+        }
+        .aside{
+            min-height: 100vh;
+            background: white;
+        }
+        section,aside{
+            box-sizing: border-box;
+        }
+        .aside__board{
+            position: relative;
+            width: 30vw;
+            height: calc(100% - 125px);
+            min-width: 300px;
+            min-height: 300px;
+            overflow: hidden;
+            border: 1px inset #9098a2;
+            border-radius: 5px;
+            padding: 20px;
+        }
+    </style>
+
+    <div class="appshell__header">
+        <h1>My contact list</h1>
+    </div>
+
+    <div class="appshell__body">
+        <section class="section">
+            <contact-info id="info"></contact-info>
+        </section>
+        <aside class="aside">
+            <div class="aside__board">
+                <slot name="contact-card"></slot>
+            </div>
+        </aside>
+    </div>
+
+
+
+</template>
+<script>
+    (function (wce) {
+
+        class AppShell extends HTMLElement {
+
+            constructor(){
+                super();
+                const shadowRoot = this.attachShadow({mode:'open'});
+                const template = document.currentScript.ownerDocument.querySelector('#appshell');
+                shadowRoot.appendChild(document.importNode(template.content,true));
+            }
+            connectedCallback(){
+                this.addEventListener('show-detail',(e)=>{this._showDetail(e)});
+            }
+            _showDetail(e){
+                console.log('hola',e);
+
+                const detail = e.detail;
+
+                const info = this.shadowRoot.querySelector("#info");
+
+                const name = info.shadowRoot.querySelector("#name");
+                const phone = info.shadowRoot.querySelector("#phone");
+                const address = info.shadowRoot.querySelector("#address");
+                const img = info.shadowRoot.querySelector("#img");
+
+                name.innerText = detail.name;
+                phone.innerText = detail.phone;
+                address.innerText = detail.address;
+
+                switch (detail.name){
+                    case "Mauricio Férez Yázbek":
+                        img.setAttribute('src','../img/mauricio.jpg');
+                        break;
+                    case "Scarlett Johansson":
+                        img.setAttribute('src','../img/scarlett.jpg');
+                        break;
+                    case "Elizabeth Olsen":
+                        img.setAttribute('src','../img/olsen.jpg');
+                        break;
+                }
+
+
+            }
+
+        }
+
+        wce.define('app-shell',AppShell);
+    })(window.customElements);
+</script>

@@ -1,0 +1,166 @@
+<template id="contactcard">
+    <style>
+        :host {
+        }
+        .card{
+            margin: 5px;
+            padding: 5px;
+            background: #9ae8ff;
+            border: 1px solid;
+            cursor: pointer;
+        }
+        .card__container{
+            display: grid;
+            grid-template-columns: 20% 80%;
+            grid-gap: 10px;
+            align-items: center;
+        }
+        img{
+            width: 100%;
+        }
+
+        .card__container,img{
+            pointer-events: none;
+        }
+
+    </style>
+
+    <div class="card">
+        <div class="card__container">
+            <div>
+                <img id="img" alt="contact">
+            </div>
+            <div>
+                <p id="name"></p>
+                <p id="phone"></p>
+                <p id="address"></p>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    (function (wce) {
+
+        class ContactCard extends HTMLElement {
+
+            constructor(){
+                super();
+                const shadowRoot = this.attachShadow({mode:'open'});
+                const template = document.currentScript.ownerDocument.querySelector('#contactcard');
+                shadowRoot.appendChild(document.importNode(template.content,true));
+
+                const name = this.shadowRoot.querySelector('#name');
+                const phone = this.shadowRoot.querySelector('#phone');
+                const address = this.shadowRoot.querySelector('#address');
+                const img = this.shadowRoot.querySelector('#img');
+
+                this.component = {
+                    name : name,
+                    phone: phone,
+                    address: address,
+                    img: img
+                };
+
+                this.form = {
+                  name: '',
+                  phone: '',
+                  address: ''
+                };
+
+                this.properties();
+
+                this.addEventListener('click',(e)=>{this.onClick(e)});
+            }
+
+            properties(){
+                this.name = "";
+                this.phone = "";
+                this.address = "";
+            }
+
+            _noEquals(oldValue,newValue){
+                if(oldValue === newValue){return true;}
+            }
+
+            static get observedAttributes(){
+                return ['name','phone','address'];
+            }
+
+            attributeChangedCallback(name,oldValue,newValue){
+
+                console.log(name);
+                console.log(oldValue);
+                console.log(newValue);
+
+                switch (name){
+                    case 'name':
+                        this._noEquals(oldValue,newValue);
+                        this.name = newValue;
+                        break;
+                    case 'phone':
+                        this._noEquals(oldValue,newValue);
+                        this.phone = newValue;
+                        break;
+                    case 'address':
+                        this._noEquals(oldValue,newValue);
+                        this.address = newValue;
+                        break;
+                }
+
+            }
+
+            get name(){
+                return this.getAttribute("name");
+            }
+
+            set name(val){
+                if(val === undefined){val = "";}
+                this.component.name.innerText = val;
+                //by default set img
+                switch (val){
+                    case "Mauricio Férez Yázbek":
+                        this.component.img.setAttribute('src','../img/mauricio.jpg');
+                        break;
+                    case "Scarlett Johansson":
+                        this.component.img.setAttribute('src','../img/scarlett.jpg');
+                        break;
+                    case "Elizabeth Olsen":
+                        this.component.img.setAttribute('src','../img/olsen.jpg');
+                        break;
+                }
+
+
+            }
+
+            get phone(){
+                return this.getAttribute("phone");
+            }
+
+            set phone(val){
+                if(val === undefined){val = "";}
+                this.component.phone.innerText = val;
+            }
+
+            get address(){
+                return this.getAttribute("address");
+            }
+
+            set address(val){
+                if(val === undefined){val = "";}
+                this.component.address.innerText = val;
+            }
+
+            onClick(e){
+
+                console.log("Me hiciste clcikc",e);
+
+                this.dispatchEvent(new CustomEvent('show-detail',{bubbles: true, composed: true,detail:{name:this.name,phone:this.phone,address:this.address}}));
+
+
+            }
+
+        }
+
+        wce.define('contact-card',ContactCard);
+    })(window.customElements);
+</script>
