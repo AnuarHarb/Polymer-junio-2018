@@ -65,7 +65,9 @@
             }
             .aside{
                 padding: 10px;
-                overflow-y: auto;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
                 width: auto;
                 background: #e4e4e475;
                 box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
@@ -122,6 +124,9 @@
             .paper__checkbox{
                 --paper-checkbox-checked-color:  #0D8ABC;
             }
+            .aside__column{
+                overflow-y: auto;
+            }
         </style>
 
         <div class="appshell__header">
@@ -137,11 +142,13 @@
                 <aside class="aside">
                     <div class="aside--title">Contacts</div>
                     <paper-button raised class="paper__button" on-click="_addContact">create new contact</paper-button>
-                    <dom-repeat items="[[contacts]]" as="c">
-                        <template>
-                            <contact-card name="[[c.name]]" phone="[[c.phone]]" favorite="[[c.favorite]]"></contact-card>
-                        </template>
-                    </dom-repeat>
+                    <div class="aside__column">
+                        <dom-repeat items="[[contacts]]" as="c">
+                            <template>
+                                <contact-card name="[[c.name]]" phone="[[c.phone]]" favorite="[[c.favorite]]"></contact-card>
+                            </template>
+                        </dom-repeat>
+                    </div>
                 </aside>
             </div>
         </div>
