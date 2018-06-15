@@ -1,0 +1,42 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="first-component">
+  <template>
+    <style>
+      h1 {
+        font-size: 40px;
+      }
+      paper-button {
+        background-color: red;
+      }
+    </style>
+    <h1>Hola mi nombre es [[myName]] y es mi primer componente de Polymer!</h1>
+    <paper-button toggles rised>Button</paper-button>
+  </template>
+  <script>
+    (function firstComponent(customElements) {
+
+      class FirstComponent extends Polymer.Element {
+        static get is() { return 'first-component'; }
+        static get properties() {
+          return {
+            myName: {
+              type: String,
+              observer: 'nameChanged'
+            }
+          }
+        }
+
+        nameChanged(newValue, oldValue) {
+          if(oldValue != undefined) {
+            alert('Mi nombre cambió, antes era' + oldValue + ' y ahora es ' + newValue);
+          }
+        }
+      }
+      customElements.define(FirstComponent.is, FirstComponent);
+    })(window.customElements);
+
+  </script>
+
+</dom-module>
