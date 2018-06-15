@@ -1,0 +1,6 @@
+{
+  "name": "polymer-contacts",
+  "short_name": "polymer-contacts",
+  "start_url": "/",
+  "display": "standalone"
+}

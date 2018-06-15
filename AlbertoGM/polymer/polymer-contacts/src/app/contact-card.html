@@ -1,0 +1,132 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="contact-card">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+            .card{
+                display: flex;
+                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+                margin-bottom: 15px;
+            }
+            .card__paper{
+                width: 100%;
+            }
+            .card__content__header{
+                font-family: 'Roboto', 'Noto', sans-serif;
+                -webkit-font-smoothing: antialiased;
+                font-size: 18px;
+                font-weight: bold;
+                letter-spacing: -.012em;
+                line-height: 32px;
+            }
+            .card__content--phone{
+                font-family: 'Roboto', 'Noto', sans-serif;
+                -webkit-font-smoothing: antialiased;
+                font-size: 14px;
+                letter-spacing: -.012em;
+                color: var(--paper-yellow-800);
+            }
+            .card__paper__rate{
+                --iron-icon-fill-color: white;
+                --iron-icon-stroke-color: var(--paper-grey-300);
+            }
+            .favorite{
+                --iron-icon-fill-color: blue;
+                --iron-icon-stroke-color: var(--paper-grey-600);
+            }
+            .card-actions{
+                display: flex;
+                justify-content: center;
+            }
+            .card__paper__img {
+                display: flex;
+                vertical-align: middle;
+                align-items: stretch;
+                width: 128px;
+                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+
+        <div class="card">
+            <paper-card class="card__paper" elevation="1" >
+                <div class="card-content">
+                    <div class="card__content__header">[[name]]</div>
+                    <div class="card__content--phone">[[phone]]</div>
+                </div>
+                <div class="card-actions" >
+                    <paper-icon-button icon="star" class$="card__paper__rate [[_isFavorite(favorite)]]"></paper-icon-button>
+                </div>
+            </paper-card>
+            <div class="card__paper__img" >
+                <dom-if if="[[favorite]]">
+                    <template>
+                        <img src="https://ui-avatars.com/api/?name=[[name]]&size=128&background=0D8ABC&color=fff" alt="contact">
+                    </template>
+                </dom-if>
+                <dom-if if="[[!favorite]]">
+                    <template>
+                        <img src="http://tinygraphs.com/labs/isogrids/hexa16/tinygraphs?theme=bythepool&numcolors=3&size=128&fmt=svg" alt="contact">
+                    </template>
+                </dom-if>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <!--<div class="card">
+            <div class="card__container">
+                <dom-if if="[[_isFavorite(favorite)]]">
+                    <template>
+                        <div>
+                            <img src="" alt="contact">
+                        </div>
+                    </template>
+                </dom-if>
+                <div>
+                    <p>[[name]]</p>
+                    <p>[[phone]]</p>
+                </div>
+            </div>
+        </div>-->
+
+
+    </template>
+
+    <script>
+        (function (w) {
+            /**
+             * @customElement
+             * @polymer
+             */
+            class ContactCard extends Polymer.Element {
+                static get is() { return 'contact-card'; }
+                static get properties() {
+                    return {
+
+                    };
+                }
+
+                _isFavorite(val){
+                    return val === true ? 'favorite' : '';
+                }
+            }
+
+            w.customElements.define(ContactCard.is, ContactCard);
+
+        })(window);
+
+    </script>
+</dom-module>
