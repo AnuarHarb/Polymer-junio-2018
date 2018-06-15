@@ -14,6 +14,7 @@
                 display: flex;
                 box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
                 margin-bottom: 15px;
+                cursor: pointer;
             }
             .card__paper{
                 width: 100%;
@@ -32,6 +33,14 @@
                 font-size: 14px;
                 letter-spacing: -.012em;
                 color: var(--paper-yellow-800);
+            }
+            .card__content--gender{
+                font-family: 'Roboto', 'Noto', sans-serif;
+                -webkit-font-smoothing: antialiased;
+                font-size: 14px;
+                letter-spacing: -.012em;
+                margin-top: 5px;
+                color: #000000;
             }
             .card__paper__rate{
                 --iron-icon-fill-color: white;
@@ -54,57 +63,36 @@
                 0 1px 5px 0 rgba(0, 0, 0, 0.12),
                 0 3px 1px -2px rgba(0, 0, 0, 0.2);
             }
-            .card__paper__img{
+            .card__paper__img > img{
                 width: 128px;
+                height: 152px;
             }
         </style>
 
-        <div class="card">
+        <div class="card" on-click="_carousel">
             <paper-card class="card__paper" elevation="1" >
                 <div class="card-content">
-                    <div class="card__content__header">[[name]]</div>
-                    <div class="card__content--phone">[[phone]]</div>
+                    <div class="card__content__header">[[data.name]]</div>
+                    <div class="card__content--phone">[[data.phone]]</div>
+                    <div class="card__content--gender">[[_prettyTxt(data.gender)]]</div>
                 </div>
                 <div class="card-actions" >
-                    <paper-icon-button icon="star" class$="card__paper__rate [[_isFavorite(favorite)]]"></paper-icon-button>
+                    <paper-icon-button icon="star" class$="card__paper__rate [[_isFavorite(data.favorite)]]"></paper-icon-button>
                 </div>
             </paper-card>
             <div class="card__paper__img" >
-                <dom-if if="[[favorite]]">
+                <dom-if if="[[data.favorite]]">
                     <template>
-                        <img src="https://ui-avatars.com/api/?name=[[name]]&size=128&background=0D8ABC&color=fff" alt="contact">
+                        <img src="[[data.img]]" alt="contact">
                     </template>
                 </dom-if>
-                <dom-if if="[[!favorite]]">
+                <dom-if if="[[!data.favorite]]">
                     <template>
-                        <img src="http://tinygraphs.com/labs/isogrids/hexa16/tinygraphs?theme=bythepool&numcolors=3&size=128&fmt=svg" alt="contact">
+                        <img src="https://ui-avatars.com/api/?name=[[data.name]]&size=128&background=0D8ABC&color=fff" alt="contact">
                     </template>
                 </dom-if>
             </div>
         </div>
-
-
-
-
-
-
-
-        <!--<div class="card">
-            <div class="card__container">
-                <dom-if if="[[_isFavorite(favorite)]]">
-                    <template>
-                        <div>
-                            <img src="" alt="contact">
-                        </div>
-                    </template>
-                </dom-if>
-                <div>
-                    <p>[[name]]</p>
-                    <p>[[phone]]</p>
-                </div>
-            </div>
-        </div>-->
-
 
     </template>
 
@@ -125,6 +113,28 @@
                 _isFavorite(val){
                     return val === true ? 'favorite' : '';
                 }
+
+                _prettyTxt(val){
+
+                    let value = '';
+
+                    switch (val){
+                        case 'M':
+                            value = 'Male';
+                            break;
+                        case 'F':
+                            value = 'Female';
+                            break;
+                    }
+
+                    return value;
+                }
+
+                _carousel(e){
+                    this.dispatchEvent(new CustomEvent('onClickCarousel',{bubbles: true, composed: true,detail:{id:""}}));
+                }
+
+
             }
 
             w.customElements.define(ContactCard.is, ContactCard);

@@ -1,12 +1,20 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../../bower_components/skeleton-carousel/skeleton-carousel.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html">
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../src/app/contact-card.html">
 
 <dom-module id="app-shell">
@@ -63,7 +71,7 @@
             .section{
                 flex: 1;
             }
-            .aside{
+            .section,.aside{
                 padding: 10px;
                 overflow: hidden;
                 display: flex;
@@ -127,6 +135,39 @@
             .aside__column{
                 overflow-y: auto;
             }
+            .section__contain{
+                display: flex;
+                flex-direction: column;
+                flex: 0 100%;
+            }
+            .section__contain__carousel{
+                height: calc(100% - 330px);
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+            }
+            skeleton-carousel{
+                width: 35%;
+                box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+                margin: 15px;
+            }
+            .paper__button--edit{
+                margin: 20px;
+                padding: 10px 45px;
+                background-color:  #0D8ABC;
+                color: white;
+                font-family: 'Roboto', 'Noto', sans-serif;
+                -webkit-font-smoothing: antialiased;
+                font-size: 16px;
+                font-weight: bold;
+                --paper-button-raised-keyboard-focus: {
+                    color: white !important;
+                    font-weight: 500 !important;
+                };
+            }
         </style>
 
         <div class="appshell__header">
@@ -136,7 +177,38 @@
         <div class="body">
             <div class="body__content">
                 <section class="section">
+                    <div class="section__contain">
+                        <div class="section__contain__carousel">
+                            <skeleton-carousel dots nav loop>
+                                <iron-image placeholder="https://source.unsplash.com/category/nature/10x10"
+                                            data-src="https://source.unsplash.com/category/nature/500x300"
+                                            sizing="cover"
+                                            preload
+                                            fade
+                                ></iron-image>
+                                <iron-image placeholder="https://source.unsplash.com/category/food/10x10"
+                                            data-src="https://source.unsplash.com/category/food/500x300"
+                                            sizing="cover"
+                                            preload
+                                            fade
+                                ></iron-image>
+                                <iron-image placeholder="https://source.unsplash.com/category/buildings/10x10"
+                                            data-src="https://source.unsplash.com/category/buildings/500x300"
+                                            sizing="cover"
+                                            preload
+                                            fade
+                                ></iron-image>
+                            </skeleton-carousel>
 
+                            <div>Name: </div>
+
+                            <paper-button raised class="paper__button--edit" on-click="_pushContact">edit contact</paper-button>
+
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
                 </section>
 
                 <aside class="aside">
@@ -145,7 +217,7 @@
                     <div class="aside__column">
                         <dom-repeat items="[[contacts]]" as="c">
                             <template>
-                                <contact-card name="[[c.name]]" phone="[[c.phone]]" favorite="[[c.favorite]]"></contact-card>
+                                <contact-card data="[[c]]"></contact-card>
                             </template>
                         </dom-repeat>
                     </div>
@@ -155,8 +227,12 @@
 
         <paper-dialog id="dialogCreateContact" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop class="paper__dialog">
             <h2>New Contact</h2>
-            <paper-input id="iName" label="Name" required error-message="The name is requerid" value="{{contact.name::input}}" ></paper-input>
+            <paper-input id="iName" label="Name" required pattern="[a-zA-Z]*" error-message="The name is requerid" value="{{contact.name::input}}" ></paper-input>
             <paper-input id="iPhone" label="Phone" required error-message="The phone is requerid" value="{{contact.phone::input}}" ></paper-input>
+            <paper-radio-group id="rbnGender">
+                <paper-radio-button name="F">Female</paper-radio-button>
+                <paper-radio-button name="M">Male</paper-radio-button>
+            </paper-radio-group>
             <paper-checkbox noink id="cbFavorite" class="paper__checkbox" checked="{{contact.favorite}}">Favorite</paper-checkbox>
             <paper-button raised class="paper__button--dialog" on-click="_pushContact">add contact</paper-button>
         </paper-dialog>
@@ -179,22 +255,35 @@
                                {
                                    name: 'Alberto García Morales',
                                    phone: "55 82 33 73 20",
-                                   favorite: true
+                                   favorite: true,
+                                   gender: 'M',
+                                   img: 'img/contact/avatar_M_1.png',
+                                   arrimg:[
+                                       { url:'https://source.unsplash.com/category/nature/500x300'},
+                                       {url:'https://source.unsplash.com/category/food/500x300'},
+                                       {url:'https://source.unsplash.com/category/buildings/500x300'}
+                                   ]
                                },
                                {
                                    name: 'Luis Fernando Mejía Sandoval',
                                    phone: "55 89 30 71 20",
-                                   favorite: true
+                                   favorite: true,
+                                   gender: 'M',
+                                   img: 'img/contact/avatar_M_2.png'
                                },
                                {
                                    name: 'Jorge Luis Salazar Córtes',
                                    phone: "55 12 42 62 72",
-                                   favorite: true
+                                   favorite: false,
+                                   gender: 'M',
+                                   img: 'img/contact/avatar_M_3.png'
                                },
                                {
                                    name: 'Claudia Patricio Atilano',
                                    phone: "55 12 33 71 22",
-                                   favorite: false
+                                   favorite: true,
+                                   gender: 'F',
+                                   img: 'img/contact/avatar_F_1.png'
                                }
                            ]
                        },
@@ -203,19 +292,30 @@
                            value:{
                                name:"",
                                phone:"",
-                               favorite: false
+                               favorite: false,
+                               gender: '',
+                               img: ''
                            }
                        }
 
                     };
                 }
 
+                connectedCallback() {
+                    super.connectedCallback();
+                    this.addEventListener('onClickCarousel', (e)=>this._onCarousel(e));
+                }
+
                 _addContact(){
                     this.contact = {
                         name : '',
                         phone: '',
-                        favorite: false
+                        favorite: false,
+                        gender:'',
+                        img:''
                     };
+
+                    this.$.rbnGender.selected = "";
 
                     this.$.dialogCreateContact.open();
                 }
@@ -226,7 +326,9 @@
                     this.push('contacts',{
                         name: this.contact.name,
                         phone: this.contact.phone,
-                        favorite: this.$.cbFavorite.checked
+                        favorite: this.$.cbFavorite.checked,
+                        gender: this.$.rbnGender.selected,
+                        img: this._randomImg(this.$.rbnGender.selected)
                     });
 
                     this.$.dialogCreateContact.close();
@@ -245,6 +347,29 @@
                     });
 
                     return stepValidation;
+                }
+
+                _randomImg(gender){
+
+                    let num = Math.floor(Math.random() * 8 + 2);
+
+                    let src = '';
+
+                    switch (gender){
+                        case 'F':
+                            src = 'img/contact/avatar_F_'+num+'.png';
+                            break;
+                        case 'M':
+                            src = 'img/contact/avatar_M_'+num+'.png';
+                            break;
+                    }
+
+                    return src;
+
+                }
+
+                _onCarousel(){
+                    alert("evento par acargar el carrousel");
                 }
 
 
