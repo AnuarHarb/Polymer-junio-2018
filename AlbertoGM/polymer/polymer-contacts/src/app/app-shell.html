@@ -134,6 +134,8 @@
             }
             .aside__column{
                 overflow-y: auto;
+                overflow-x: hidden;
+                padding: 2px;
             }
             .section__contain{
                 display: flex;
@@ -180,27 +182,19 @@
                     <div class="section__contain">
                         <div class="section__contain__carousel">
                             <skeleton-carousel dots nav loop>
-                                <iron-image placeholder="https://source.unsplash.com/category/nature/10x10"
-                                            data-src="https://source.unsplash.com/category/nature/500x300"
-                                            sizing="cover"
-                                            preload
-                                            fade
-                                ></iron-image>
-                                <iron-image placeholder="https://source.unsplash.com/category/food/10x10"
-                                            data-src="https://source.unsplash.com/category/food/500x300"
-                                            sizing="cover"
-                                            preload
-                                            fade
-                                ></iron-image>
-                                <iron-image placeholder="https://source.unsplash.com/category/buildings/10x10"
-                                            data-src="https://source.unsplash.com/category/buildings/500x300"
-                                            sizing="cover"
-                                            preload
-                                            fade
-                                ></iron-image>
+                                <dom-repeat items="[[randomImgContact]]" as="i">
+                                    <template>
+                                        <iron-image
+                                                    src="{{i.url}}"
+                                                    sizing="cover"
+                                                    preload
+                                                    fade
+                                        ></iron-image>
+                                    </template>
+                                </dom-repeat>
                             </skeleton-carousel>
 
-                            <div>Name: </div>
+                            <div>Name: [[info.name]] </div>
 
                             <paper-button raised class="paper__button--edit" on-click="_pushContact">edit contact</paper-button>
 
@@ -215,8 +209,8 @@
                     <div class="aside--title">Contacts</div>
                     <paper-button raised class="paper__button" on-click="_addContact">create new contact</paper-button>
                     <div class="aside__column">
-                        <dom-repeat items="[[contacts]]" as="c">
-                            <template>
+                        <dom-repeat items="[[contacts]]" as="c" id="dom_repeat_contacts">
+                            <template id="templateCard2">
                                 <contact-card data="[[c]]"></contact-card>
                             </template>
                         </dom-repeat>
@@ -259,9 +253,13 @@
                                    gender: 'M',
                                    img: 'img/contact/avatar_M_1.png',
                                    arrimg:[
-                                       { url:'https://source.unsplash.com/category/nature/500x300'},
-                                       {url:'https://source.unsplash.com/category/food/500x300'},
-                                       {url:'https://source.unsplash.com/category/buildings/500x300'}
+                                       {url:'img/contact/avatar_M_2.png'},
+                                       {url:'img/contact/avatar_M_3.png'},
+                                       {url:'img/contact/avatar_M_4.png'},
+                                       {url:'img/contact/avatar_M_5.png'},
+                                       {url:'img/contact/avatar_M_6.png'},
+                                       {url:'img/contact/avatar_M_7.png'},
+                                       {url:'img/contact/avatar_M_8.png'}
                                    ]
                                },
                                {
@@ -269,21 +267,48 @@
                                    phone: "55 89 30 71 20",
                                    favorite: true,
                                    gender: 'M',
-                                   img: 'img/contact/avatar_M_2.png'
+                                   img: 'img/contact/avatar_M_2.png',
+                                   arrimg:[
+                                       {url:'img/contact/avatar_M_1.png'},
+                                       {url:'img/contact/avatar_M_3.png'},
+                                       {url:'img/contact/avatar_M_4.png'},
+                                       {url:'img/contact/avatar_M_5.png'},
+                                       {url:'img/contact/avatar_M_6.png'},
+                                       {url:'img/contact/avatar_M_7.png'},
+                                       {url:'img/contact/avatar_M_8.png'}
+                                   ]
                                },
                                {
                                    name: 'Jorge Luis Salazar Córtes',
                                    phone: "55 12 42 62 72",
                                    favorite: false,
                                    gender: 'M',
-                                   img: 'img/contact/avatar_M_3.png'
+                                   img: 'img/contact/avatar_M_3.png',
+                                   arrimg:[
+                                       {url:'img/contact/avatar_M_1.png'},
+                                       {url:'img/contact/avatar_M_2.png'},
+                                       {url:'img/contact/avatar_M_3.png'},
+                                       {url:'img/contact/avatar_M_5.png'},
+                                       {url:'img/contact/avatar_M_6.png'},
+                                       {url:'img/contact/avatar_M_7.png'},
+                                       {url:'img/contact/avatar_M_8.png'}
+                                   ]
                                },
                                {
                                    name: 'Claudia Patricio Atilano',
                                    phone: "55 12 33 71 22",
                                    favorite: true,
                                    gender: 'F',
-                                   img: 'img/contact/avatar_F_1.png'
+                                   img: 'img/contact/avatar_F_1.png',
+                                   arrimg:[
+                                       {url:'img/contact/avatar_F_2.png'},
+                                       {url:'img/contact/avatar_F_3.png'},
+                                       {url:'img/contact/avatar_F_4.png'},
+                                       {url:'img/contact/avatar_F_5.png'},
+                                       {url:'img/contact/avatar_F_6.png'},
+                                       {url:'img/contact/avatar_F_7.png'},
+                                       {url:'img/contact/avatar_F_8.png'}
+                                   ]
                                }
                            ]
                        },
@@ -296,8 +321,17 @@
                                gender: '',
                                img: ''
                            }
+                       },
+                       randomImgContact:{
+                           type: Array,
+                           value:[]
+                       },
+                       info: {
+                           type: Object,
+                           value:{
+                               name: ""
+                           }
                        }
-
                     };
                 }
 
@@ -351,27 +385,33 @@
 
                 _randomImg(gender){
 
-                    let num = Math.floor(Math.random() * 8 + 2);
+                    let num = Math.floor(Math.random() * 7 + 1);
 
-                    let src = '';
-
-                    switch (gender){
-                        case 'F':
-                            src = 'img/contact/avatar_F_'+num+'.png';
-                            break;
-                        case 'M':
-                            src = 'img/contact/avatar_M_'+num+'.png';
-                            break;
-                    }
+                    let src = `img/contact/avatar_${gender}_${num}.png`;
 
                     return src;
 
                 }
 
-                _onCarousel(){
-                    alert("evento par acargar el carrousel");
-                }
+                _onCarousel(e){
 
+                    let contact = this.$.dom_repeat_contacts.itemForElement(e.detail.target);
+
+                    this.randomImgContact = [];
+
+                    if(contact.favorite !== false && contact.arrimg !== undefined){
+                        this.set('randomImgContact',contact.arrimg);
+                    }else if(contact.favorite !== false){
+                        this.set('randomImgContact',[{url:contact.img}]);
+                    }else{
+                        this.set('randomImgContact',[{url:`https://ui-avatars.com/api/?name=${contact.name}&size=128&background=0D8ABC&color=fff`}]);
+                    }
+
+                    this.set('info',{
+                        name: contact.name
+                    });
+
+                }
 
             }
 
