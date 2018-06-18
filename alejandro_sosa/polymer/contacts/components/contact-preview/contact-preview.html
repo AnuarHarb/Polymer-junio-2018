@@ -1,0 +1,81 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="contact-preview">
+    <template>
+        <style>
+            :host{
+                font-size: 1.4em;
+            }
+            .card{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding:10px;
+                background: #fbfafa;
+                box-shadow: 0 4px 6px -8px rgba(0,0,0,.4);
+                transition: box-shadow .6s;
+            }
+            .list{
+                list-style: none;
+                margin:40px;
+                padding: 0;
+                width:100%;
+                text-align:center;
+            }
+            .img-holder{
+                margin: 0px;
+                width:200px;
+                height:240px;
+                border: 1px solid #fff;
+                background: #cacaca;
+            }
+            .img{
+                width:100%;
+                height:100%;
+            }
+            .list-item + .list-item{
+                margin-top: 30px;
+            }
+        </style>
+        
+        <div class="card">
+            <div class="img-holder">
+                <template is="dom-if" if="[[fav]]">
+                    <img class="img" src="[[img]]" >
+                </template>
+            </div>
+            <ul class="list">
+                <li class="list-item"><strong class="name">[[name]]</strong></li>
+                <li class="list-item tel">[[phone]]</li>
+            </ul>
+        </div>
+        
+    </template>
+    <script>
+        (function(){
+
+            class ContactPreview extends Polymer.Element {
+                static get is() { return 'contact-preview' }
+
+                static get properties(){
+                    return {
+                        name: String,
+                        phone: String,
+                        img: String
+                    }
+                }
+
+                setData( data ) {
+                    this.name = data.name;
+                    this.phone = data.phone;
+                    this.img = data.img;
+                    this.fav = data.fav;
+                }
+            }
+
+            customElements.define( ContactPreview.is, ContactPreview )
+
+        })();
+    </script>
+</dom-module>

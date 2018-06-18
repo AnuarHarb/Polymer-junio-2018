@@ -1,0 +1,76 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="contact-item">
+    <template>
+        <style>
+            :host{
+                display: block;
+            }
+            :host(:hover){
+                cursor: pointer;
+            }
+            .card{
+                display: flex;
+                align-items: center;
+                padding:10px;
+                background: #fbfafa;
+                box-shadow: 0 4px 6px -8px rgba(0,0,0,.4);
+                transition: box-shadow .6s;
+            }
+            .card:hover{
+                box-shadow: 0 4px 6px -4px rgba(0,0,0,.4);
+                transition: box-shadow .6s;
+            }
+            .list{
+                list-style: none;
+                margin:0;
+                padding: 0;
+            }
+            .img{
+                margin-right: 20px;
+                width:50px;
+                height:60px;
+                border: 1px solid #fff;
+                background: #cacaca;
+            }
+            .list-item + .list-item{
+                margin-top: 3px;
+            }
+        </style>
+        <div class="card">
+            <template is="dom-if" if="[[fav]]">
+                <img class="img" src="[[img]]">
+            </template>
+            <ul class="list">
+                <li class="list-item">Name: <strong class="name">[[name]]</strong></li>
+                <li class="list-item">Phone: [[phone]]</li>
+            </ul>
+        </div>
+        
+    </template>
+    <script>
+        (function(){
+
+            class ContactItem extends Polymer.Element {
+                static get is() { return 'contact-item' }
+
+                connectedCallback() {
+                    super.connectedCallback();
+                    this.addEventListener('click', function(){
+                        this.dispatchEvent(new CustomEvent('pressed', {
+                            detail:{
+                                name: this.name,
+                                phone: this.phone,
+                                img: this.img,
+                                fav: this.fav
+                            }
+                        }))
+                    }.bind(this));
+                }
+            }
+
+            customElements.define( ContactItem.is, ContactItem )
+
+        })();
+    </script>
+</dom-module>

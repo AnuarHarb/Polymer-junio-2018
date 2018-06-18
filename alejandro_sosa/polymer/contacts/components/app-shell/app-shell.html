@@ -1,0 +1,119 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../contact-form/contact-form.html">
+<link rel="import" href="../contact-item/contact-item.html">
+<link rel="import" href="../contact-preview/contact-preview.html">
+
+
+<dom-module id="app-shell">
+    <template>
+        <style>
+            :host{
+                display: block;
+                width: 100%;
+                font-family: sans-serif;
+                font-size:13px;
+                box-sizing: border-box;
+            }
+            .container{
+                display: flex;
+            }
+            .list{
+                width:30%;
+                min-width: 200px;
+            }
+            .contact-list{
+                margin:20px 0 0;
+            }
+            contact-preview{
+                flex-grow:2;
+                margin-right: 20px;
+            }
+            contact-item + contact-item{
+                margin-top: 10px;
+            }
+            .add-button{
+                background: aqua;
+            }
+           
+            paper-button{
+                display: block;
+                text-align: center;
+            }
+        </style>
+        
+        <div class="container">
+            <contact-preview id="preview"></contact-preview>
+            <div id="list" class="list">
+                
+                <paper-dialog id="dialog">
+                    <contact-form on-form-submit="saveContact"></contact-form>
+                </paper-dialog>
+                <paper-button class="add-button" on-click="showForm" raised >Add Contact</paper-button>
+                <div class="contact-list"></div>
+                    <template is="dom-repeat" items="[[contactList]]" >
+                        <contact-item on-pressed="updatePreview" name="[[item.name]]" phone="[[item.phone]]" img="[[item.img]]" fav=[[item.fav]] ></contact-item>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        (function(){
+
+            class AppShell extends Polymer.Element {
+                static get is() { return 'app-shell' }
+                
+                static get properties() {
+                    return {
+                        contactList:{
+                            type: Array,
+                            value: [
+                                {
+                                    name: 'Alejandro',
+                                    phone: '1983723',
+                                    img: 'assets/img_avatar.png',
+                                    fav: false
+                                },
+                                {
+                                    name: 'Mario',
+                                    phone: '9834763',
+                                    img: 'assets/img_avatar2.png',
+                                    fav: true
+                                }
+                            ],
+                            notify:true
+                        }
+                    }
+                }
+
+                saveContact( e ) {
+                    this.push('contactList', {
+                        name: e.detail.name,
+                        phone: e.detail.phone,
+                        fav: e.detail.fav,
+                        img: 'assets/img_avatar'+(Math.round(Math.random()*1)+2)+'.png',
+                    });
+                    this.$.dialog.close();
+                }
+
+                showForm() {
+                    this.$.dialog.open();
+                }
+                
+                updatePreview( e ){
+                    this.$.preview.setData( e.detail ); 
+                }
+
+               connectedCallback(){
+                   super.connectedCallback();
+                   this.$.preview.setData( this.contactList[0] );
+               }
+            }
+
+            customElements.define( AppShell.is, AppShell )
+
+        })();
+    </script>
+</dom-module>

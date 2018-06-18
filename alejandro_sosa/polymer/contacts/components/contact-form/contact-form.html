@@ -1,0 +1,85 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+
+<dom-module id="contact-form">
+    <template>
+        <style>
+            :host{
+                display: block;
+            }
+            .form{
+                margin:10px 10px 30px;
+                min-width: 300px;
+            }
+            .form-title{
+                text-align: center;
+            }
+            paper-button{
+                margin-top:20px;
+                display: block;
+                text-align: center;
+                background: aqua;
+            }
+            paper-button[disabled]{
+                background: #fafafa;
+            }
+        </style>
+        
+        <form class="form">
+            <h2 class="form-title">Add Contact</h2>
+            <paper-input id="form_name" label="Name" value="{{name}}"></paper-input>
+            <paper-input id="form_phone" label="Phone" value="{{phone}}"></paper-input>
+            <paper-checkbox id="checkbox">Favorite</paper-checkbox>
+            <paper-button id="submit" class="hightlight" on-click="sendForm" raised disabled="[[disabled]]">Save</paper-button>
+        </form>
+        
+    </template>
+    <script>
+        (function(){
+
+            class ContactForm extends Polymer.Element {
+                static get is() { return 'contact-form' }
+
+                static get properties(){
+                    return {
+                        name:{
+                            type: String,
+                            observer: "validateInputs"
+                        },
+                        phone:{
+                            type: String,
+                            observer: "validateInputs"
+                        },
+                        disabled: {
+                            type: Boolean,
+                            value: true
+                        }
+                        
+                    }
+                }
+
+                sendForm() {
+                    console.info('send');
+                    this.dispatchEvent(new CustomEvent('form-submit', {
+                        detail:{
+                            name: this.name,
+                            phone: this.phone,
+                            fav: this.$.checkbox.getAttribute('checked') !== null? true : false
+                        }
+                    }));
+                    this.$.form_name.value = '';
+                    this.$.form_phone.value = '';
+                }
+
+                validateInputs( attr ){
+                    this.disabled = this.name.length && this.phone.length? false : true;
+                }
+            }
+
+            customElements.define( ContactForm.is, ContactForm )
+
+        })();
+    </script>
+</dom-module>
