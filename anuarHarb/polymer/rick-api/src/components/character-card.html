@@ -1,0 +1,89 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+
+<dom-module id="character-card">
+  <template>
+    <style>
+      :host {
+        font-family: arial;
+        display: inline-block;
+        text-align: left;
+        width: 400px;
+      }
+
+      article {
+        border: 2px solid black;
+        border-radius: 4px;
+        display: grid;
+        grid-template-columns: 40% 1fr;
+        grid-column-gap: 20px;
+        overflow: hidden;
+      }
+
+      article:hover {
+        cursor: pointer;
+      }
+
+      picture {
+        width: 100%;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+      }
+
+      div {
+        display: inline-block;
+        padding: 20px 0;
+        width: 100%;
+      }
+
+      .card__name {
+        font-size: 25px;
+        margin: 0;
+      }
+      .card__property {
+        font-weight: bold;
+      }
+
+    </style>
+      <article>
+        <picture>
+          <img src="[[characterInfo.image]]" alt="">
+        </picture>
+        <div>
+          <h3 class="card__name"> [[characterInfo.name]]</h3>
+          <p><span class="card__property">Species:</span> [[characterInfo.species]]</p>
+          <p><span class="card__property">Status:</span> [[characterInfo.status]]</p>
+        </div>
+      </article>
+  </template>
+  <script>
+    (function characterCard(customElements) {
+      'use strict';
+
+      class CharacterCard extends Polymer.Element {
+        static get is() { return 'character-card'; }
+        static get properties() {
+          return {
+
+          }
+        }
+
+        ready() {
+          this.addEventListener('click', this._characterSelected);
+          super.ready();
+        }
+
+        _characterSelected(event) {
+          this.dispatchEvent(new CustomEvent('character-selected', {
+            detail: {
+              character: this.characterInfo
+            }
+          }));
+        }
+      }
+      customElements.define(CharacterCard.is, CharacterCard);
+    })(window.customElements);
+  </script>
+</dom-module>
