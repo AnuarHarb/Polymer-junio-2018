@@ -1,0 +1,37 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+
+<dom-module id="character-view">
+  <template>
+    <style>
+
+    </style>
+      <h1>[[character.name]]</h1>
+      <h2>Imágen</h2>
+      <h2>Lista de episodios</h2>
+      <h2>Especie, genero, origen</h2>
+      <h2>locaciones</h2>
+
+  </template>
+  <script>
+    (function characterView(customElements) {
+      'user strict';
+
+      class CharacterView extends Polymer.Element {
+        static get is() { return 'character-view'; }
+        static get properties() {
+          return {
+            character: {
+              observer: '_ready'
+            }
+          }
+        }
+
+        _ready() {
+          console.log(this.character)
+        }
+      }
+
+      customElements.define(CharacterView.is, CharacterView);
+    })(window.customElements);
+  </script>
+</dom-module>

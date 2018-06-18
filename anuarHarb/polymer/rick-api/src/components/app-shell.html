@@ -1,0 +1,174 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="character-card.html">
+<link rel="import" href="character-view.html">
+
+<dom-module id="app-shell">
+  <template>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        align-items: center;
+        background-color: purple;
+        display: flex;
+        height: 80px;
+        justify-content: center;
+      }
+
+      nav {
+        align-items: center;
+        background-color: gray;
+        display: flex;
+        justify-content: space-around;
+        height: 80px;
+        margin-bottom: 40px;
+        padding: 0 30%;
+      }
+
+      a {
+        color: white;
+        font-size: 30px;
+        font-family: arial;
+        text-decoration: none;
+      }
+
+      h1 {
+        color: white;
+        font-size: 50px;
+        font-family: arial;
+        text-align: center;
+      }
+
+      section {
+        max-width: 1300px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      character-card {
+        margin: 20px;
+      }
+
+      button {
+        display: block;
+        text-align: center;
+        margin: 60px auto;
+      }
+    </style>
+
+    <iron-ajax
+      id="ajax"
+      auto
+      url="https://rickandmortyapi.com/api/character"
+      params='{"page": "1"}'
+      handle-as="json"
+      on-response="saveCharacters"
+      last-response="{{characters}}">
+    </iron-ajax>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{data}}"> <!-- Pattern in the data property (data.page) -->
+    </app-route>
+
+    <header>
+      <h1>Rick and Morty Characters</h1>
+    </header>
+    <nav>
+      <a href="/all">All</a>
+      <a href="/alive">Alive</a>
+      <a href="/dead">Dead</a>
+      <a href="/unknown">Unknown</a>
+    </nav>
+
+    <iron-pages selected="[[data.page]]" attr-for-selected="page" fallback-selection="all">
+      <section page="all">
+        <template is="dom-repeat" items=[[charactersList]] as="character">
+          <character-card
+            on-character-selected="_characterSelected"
+            character-info="[[character]]">
+          </character-card>
+        </template>
+        <button on-click="_nextPage">Next page</button>
+      </section>
+      <section page="alive">
+        <template is="dom-repeat" items=[[aliveCharacters]] as="character">
+          <character-card on-character-selected="_characterSelected" character-info="[[character]]"></character-card>
+        </template>
+        <button on-click="_nextPage">Next page</button>
+      </section>
+      <section page="dead">
+        <template is="dom-repeat" items=[[deadCharacters]] as="character">
+          <character-card on-character-selected="_characterSelected" character-info="[[character]]"></character-card>
+        </template>
+        <button on-click="_nextPage">Next page</button>
+      </section>
+      <section page="character">
+        <character-view character="[[activeCharacter]]"></character-view>
+      </section>
+      <section page="unknown">
+        <template is="dom-repeat" items=[[unknownCharacters]] as="character">
+          <character-card on-character-selected="_characterSelected" character-info="[[character]]"></character-card>
+        </template>
+        <button on-click="_nextPage">Next page</button>
+      </section>
+    </iron-pages>
+
+
+
+
+
+  </template>
+  <script>
+    (function appShell(customElements) {
+      'use strict';
+
+      class AppShell extends Polymer.Element {
+        static get is() { return 'app-shell'; }
+        static get properties() {
+          return {
+
+          }
+        }
+
+        connectedCallback() {
+          super.connectedCallback();
+          console.log(this.route);
+          console.log(this.data);
+        }
+
+        saveCharacters(event) {
+          this.activeCharacter = this.characters.results[1];
+          this.charactersList = this.characters.results;
+          this.aliveCharacters = this.charactersList.filter(character => character.status == "Alive");
+          this.deadCharacters = this.charactersList.filter(character => character.status == "Dead");
+          this.unknownCharacters = this.charactersList.filter(character => character.status == "unknown");
+          // this.set('charactersList', this.characters.results)
+        }
+
+        _characterSelected(event) {
+          this.activeCharacter = event.detail.character;
+          this.set('route.path', '/character');
+        }
+
+        _nextPage() {
+          this.requestPage = this.requestPage + 1;
+          console.log(this.requestPage);
+          this.$.ajax.generateRequest();
+          console.log(this.characters.results)
+        }
+      }
+      customElements.define(AppShell.is, AppShell);
+    })(window.customElements);
+  </script>
+</dom-module>
