@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Progress Bar with components</title>
+    <link rel="import" href="progress-bar.html">
+</head>
+<body>
+    <main class="main--content">
+        <button class="button" onclick="start()">Start</button>
+        <progress-bar value="0" min="0" max="100"></progress-bar>
+        <progress-bar value="0" min="0" max="100" interval="5"></progress-bar>
+        <progress-bar value="0" min="0" max="100" interval="10" milis="3000"></progress-bar>
+    </main>
+    <script>
+        function start() {
+            const elements = document.querySelectorAll('progress-bar');
+            elements.forEach((element,item)=>{
+               element._start();
+            })
+        }
+    </script>
+</body>
+</html>

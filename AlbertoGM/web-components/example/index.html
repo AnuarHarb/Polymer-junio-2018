@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="import" href="my-element.html">
+</head>
+<body>
+    <my-element my-selected="true"></my-element>
+    <script>
+        const element = document.querySelector('my-element');
+        element.addEventListener('element-clicked',(e)=>{
+            console.log('e',e);
+        })
+    </script>
+</body>
+</html>

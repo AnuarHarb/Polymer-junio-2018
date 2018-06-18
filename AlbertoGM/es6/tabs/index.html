@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" sizes="16x16" href="./img/html5.ico">
+    <meta charset="UTF-8">
+    <title>Tabs</title>
+</head>
+<body>
+
+    <main class="board">
+
+        <div class="tabs">
+            <div class="tabs--top"></div>
+            <div class="tabs--content">
+                <div id="tab__0" class="tabs__tab" >
+                    <div class="tabs__tab--content" selected onclick="onDefaultTab()" >
+                        <div class="tabs__tab--icon">
+                            <img>
+                        </div>
+                        <div class="tabs__tab--title">Home</div>
+                        <div class=""></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabs--bottom"></div>
+        </div>
+        <div class="pages">
+            <div id="page__0" class="pages__page--content" open>
+                <h1> !WELCOME! </h1>
+                <h2> This is the main page to create tabs. </h2>
+                <p>
+                    <span>Name of the tab: <input type="text" class="input__name"></span>
+                </p>
+                <p>
+                    <span>Url of the icon:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="input__url" type="url"></span>
+                </p>
+
+                <button id="buttonExec" class="button"><span>Crear</span></button>
+            </div>
+        </div>
+    </main>
+
+    <script src="index.js" async></script>
+</body>
+</html>
