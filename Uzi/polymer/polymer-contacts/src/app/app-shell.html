@@ -1,0 +1,189 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons//iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="stylesheet" href="../../bower_components/">
+
+<link rel="import" href="contact-card.html">
+<link rel="import" href="contact-detail.html">
+
+<dom-module id="app-shell">
+    <template>
+        <style>
+            .app__main {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+            }
+
+            .detail__div {
+                padding: 1em;
+            }
+
+            .contacts__div {
+                padding: 1em;
+            }
+
+            .paper-dialog {
+                width: 500px;
+            }
+        </style>
+
+        <header>
+            <h1>Contacts App</h1>
+        </header>
+
+        <main class="app__main">
+            <div class="detail__div">
+                <contact-detail
+                    name="[[name]]"
+                    phone="[[phone]]"
+                    address="[[address]]"
+                    thumbnail="[[thumbnail]]"
+                    favourite="[[favourite]]"></contact-detail>
+            </div>
+
+            <aside class="contacts__div">
+                <dom-repeat items="[[studentsList]]">
+                    <template>
+                        <contact-card 
+                            name="[[item.name]]" 
+                            thumbnail="[[item.thumbnail]]" 
+                            phone="[[item.phone]]" 
+                            address="[[item.address]]" 
+                            favourite="[[item.favourite]]"
+                            on-card-clicked="cardTriggered"></contact-card>
+                    </template>
+                </dom-repeat>
+            </aside>
+
+            <div></div>
+
+            <paper-button on-tap="trigDialog" raised>Nuevo usuario</paper-button>
+
+            <paper-dialog id="modal" modal>
+                <div>
+                    <paper-input id="input__name" label="Nombre"></paper-input>
+                    <paper-input id="input__phone" label="Teléfono"></paper-input>
+                    <paper-input id="input__address" label="Dirección"></paper-input>
+                    <paper-checkbox id="input__favourite">Favorito</paper-checkbox>
+                </div>
+                <div class="buttons">
+                    <paper-button dialog-dismiss>Cancelar</paper-button>
+                    <paper-button autofocus on-tap="addItem">Agregar</paper-button>
+                </div>
+            </paper-dialog>
+        </main>
+
+    </template>
+</dom-module>
+
+<script>
+    (function appShell(customElements) {
+        'use strict';
+
+        class AppShell extends Polymer.Element {
+            static get is() { return 'app-shell'; }
+
+            static get properties() {
+                return {
+                    name: {
+                        type: String,
+                        value: 'Hola'
+                    },
+
+                    phone: {
+                        type: String,
+                        value: 'Placenumber'
+                    },
+
+                    address: {
+                        type: String,
+                        value: 'Placeaddress'
+                    },
+
+                    favourite: {
+                        type: Boolean,
+                        value: true
+                    },
+                    thumbnail: {
+                        type: String,
+                        value: 'http://placehold.it/400x400/FFC107/000000'
+                    },
+
+                    studentsList: {
+                        type: Array,
+                        value: [
+                            {
+                                name: 'Uzi',
+                                phone: '5512002105',
+                                address: 'Iztapalapa',
+                                thumbnail: '',
+                                favourite: false
+                            },
+                            {
+                                name: 'Damián',
+                                phone: '3320949890',
+                                address: 'Ecatepec',
+                                thumbnail: 'http://placehold.it/400x400/FFC107/000000',
+                                favourite: true
+                            }
+                        ]
+                    },
+
+                    users: {
+                        type: Array,
+                        value: function () {
+                            return [];
+                        }
+                    }
+                }
+            }
+
+            static get observers() {
+                return [
+                    'studentsAdded(studentsList.*)'
+                ]
+            }
+
+            trigDialog() {
+                this.$.modal.open();
+            }
+
+            studentsAdded(changes) {
+                console.log('Theres a change');
+            }
+
+            addItem() {
+                console.log(this.$.input__favourite.value);
+                this.push('studentsList', {
+                    name: this.$.input__name.value,
+                    phone: this.$.input__phone.value,
+                    address: this.$.input__address.value,
+                    favourite: this.$.input__favourite.checked
+                });
+
+                this.$.modal.close();
+                
+                this.$.input__name.value = '',
+                this.$.input__phone.value = '',
+                this.$.input__address.value = ''
+            }
+
+            cardTriggered(event) {
+                //console.log(event.detail);
+                this.name = event.detail.name,
+                this.phone = event.detail.phone,
+                this.address = event.detail.address,
+                this.thumbnail = event.detail.thumbnail,
+                this.favourite = event.detail.favourite
+            }
+        }
+
+        customElements.define(AppShell.is, AppShell)
+    })(window.customElements);
+</script>

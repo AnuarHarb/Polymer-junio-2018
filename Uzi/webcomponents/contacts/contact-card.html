@@ -69,36 +69,6 @@
                 return this.getAttribute('address');
             }
 
-            //S E T S
-
-            set thumbnail(val) {
-                if (this.thumbnail == val && oldVal != newVal) {
-                    return;
-                }
-                this.setAttribute('thumbnail', val);
-            }
-
-            set name(val) {
-                if (this.name == val && oldVal != newVal) {
-                    return;
-                }
-                this.setAttribute('name', val);
-            }
-
-            set phone(val) {
-                if (this.phone == val && oldVal != newVal) {
-                    return;
-                }
-                this.setAttribute('phone', val);
-            }
-
-            set address(val) {
-                if (this.address == val && oldVal != newVal) {
-                    return;
-                }
-                this.setAttribute('address', val);
-            }
-
             attributeChangeCallback(attrChange, oldVal, newVal) {
                 if (attrChange == 'thumbnail') {
                     this.thumbnail = newVal;

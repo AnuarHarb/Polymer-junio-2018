@@ -20,38 +20,11 @@
 
     <main class="container__main">
         <article class="detail__article">
-            <contact-detail
-                id="detail__component"
-                thumbnail="assets/emma.png"
-                name="Hola"
-                phone="Teléfono"
-                address="Dirección"></contact-detail>
+            <slot name="detail-slot"></slot>
         </article>
 
         <aside class="menu_aside">
-            <contact-card
-                thumbnail="assets/luke.jpeg"
-                name="Luke Skywalker" 
-                phone="55-19BBY" 
-                address="Tatooine"></contact-card>
-
-            <contact-card
-                thumbnail="assets/c3po.jpeg"
-                name="C-3PO" 
-                phone="55-112BBY" 
-                address="Tatooine"></contact-card>
-
-            <contact-card
-                thumbnail="assets/r2d2.jpeg"
-                name="R2-D2" 
-                phone="55-33BBY" 
-                address="Naboo"></contact-card>
-
-            <contact-card
-                thumbnail="assets/darth.jpeg"
-                name="Darth Vader" 
-                phone="55-41.9BBY" 
-                address="Tatooine"></contact-card>
+            <slot name="card-slot"></slot>
         </aside>
     </main>
 
@@ -74,8 +47,8 @@
 
             connectedCallback() {
                 const host = this.shadowRoot.querySelector('.menu_aside');
-                const cards = host.getElementsByTagName('contact-card');
-                const detail = this.shadowRoot.querySelector('#detail__component');
+                const cards = host.getElementsByTagName('slot');
+                const detail = this.querySelector('#detail__component');
 
                 for (const iterator of cards) {
                     iterator.addEventListener('contact-clicked', (event) => {
