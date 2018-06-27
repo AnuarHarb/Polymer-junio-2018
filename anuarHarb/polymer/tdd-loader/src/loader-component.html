@@ -1,0 +1,25 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+
+<dom-module id="loader-component">
+  <template>
+    <style>
+
+    </style>
+      <h1>Hwy</h1>
+  </template>
+  <script>
+    (function loaderComponent(customElements) {
+      'use strict';
+
+      class LoaderComponent extends Polymer.Element {
+        static get is() { return 'loader-component'; }
+        static get properties() {
+          return {
+
+          }
+        }
+      }
+      customElements.define(LoaderComponent.is, LoaderComponent);
+    })(window.customElements);
+  </script>
+</dom-module>
