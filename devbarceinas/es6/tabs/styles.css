@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.tabs__button {
+    display: flex;
+    justify-content: center;
+    padding-top: 45%;
+}
+
+.tabs__add {
+    padding: 20px;
+    background-color: #DE5B49;
+    border-radius: 6px;
+    border-color: #324D5C;
+    cursor: pointer;
+}  
+
+.tabs__menu {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    background-color: #DE5B49;
+}
