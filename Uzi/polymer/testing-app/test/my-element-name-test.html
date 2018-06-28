@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <link rel="import" href="../src/my-element.html">
+</head>
+<body>
+    <test-fixture id="my-element">
+        <template>
+            <my-element></my-element>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('name in my element', function () {
+            test('full name is name + lastName', function (){
+                const myElement = fixture('my-element');
+                myElement.name = "Juan";
+                myElement.lastName = "Rubio";
+                assert.equal(myElement.fullName, "Juan Rubio");
+            })
+        })
+    </script>
+</body>
+</html>

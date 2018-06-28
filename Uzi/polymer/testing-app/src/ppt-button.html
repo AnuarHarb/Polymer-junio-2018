@@ -1,0 +1,27 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="ppt-button">
+    <template>
+        <style>
+
+        </style>
+
+        <paper-button>[[label]]</paper-button>
+    </template>
+
+    <script>
+        (function pptButton(customElements) {
+            'use strict';
+
+            class PptButton extends Polymer.Element {
+                static get is() { return 'ppt-button'; }
+                static get properties() {
+                    return {
+                        label: String
+                    }
+                }
+            }
+            customElements.define(PptButton.is, PptButton);
+        })(window.customElements);
+    </script>
+</dom-module>

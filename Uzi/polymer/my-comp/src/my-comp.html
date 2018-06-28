@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="my-comp">
+    <template>
+        <style>
+        
+        </style>
+
+        <h1>Hola [[name]]</h1>
+
+    </template>
+
+    <script>
+        (function myComp(customElements) {
+            'use strict';
+
+            class MyComp extends Polymer.Element {
+                static get is() { return 'my-comp' };
+                static get properties() {
+                    return {
+                        name: {
+                            type: String,
+                            value: 'Uzi'
+                        }
+                    }
+                }
+            } customElements.define(MyComp.is, MyComp); 
+        })(window.customElements);
+    </script>
+</dom-module>

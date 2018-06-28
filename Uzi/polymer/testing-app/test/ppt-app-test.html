@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PPT APP Tester</title>
+    <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <link rel="import" href="../src/ppt-app.html">
+</head>
+
+<body>
+    <test-fixture id="ppt-app">
+        <template>
+            <ppt-app></ppt-app>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('Test para PPT APP', function () {
+            suite('Test de tiros del usuario', function () {
+                test('Usuario tira Piedra y pasa a computarse como Piedra', function () {
+                    const pptApp = fixture('ppt-app');
+                    const eventMock = { target: { label: 'Piedra' } };
+                    pptApp.setValOfCurrentThrow(eventMock);
+                    assert.equal(pptApp.userThrowForCompute, 'Piedra');
+                });
+
+                test('Usuario tira Papel y pasa a computarse como Papel', function () {
+                    const pptApp = fixture('ppt-app');
+                    const eventMock = { target: { label: 'Papel' } };
+                    pptApp.setValOfCurrentThrow(eventMock);
+                    assert.equal(pptApp.userThrowForCompute, 'Papel');
+                });
+
+                test('Usuario tira Tijeras y pasa a computarse como Tijeras', function () {
+                    const pptApp = fixture('ppt-app');
+                    const eventMock = { target: { label: 'Tijeras' } };
+                    pptApp.setValOfCurrentThrow(eventMock);
+                    assert.equal(pptApp.userThrowForCompute, 'Tijeras');
+                });
+            });
+
+            suite('Test de tiros de la computadora', function () {
+                test('Usuario tira piedra y CPU tira aleatorio para computar', function () {
+                    const pptApp = fixture('ppt-app');
+                    const eventMock = { target: { label: 'Piedra' } };
+                    pptApp.setValOfCurrentThrow(eventMock);
+                    expect(pptApp.cpuThrowForCompute).be.within(0,1);
+                });
+
+                test('Usuario tira papel y CPU tira aleatorio para computar', function () {
+                    const pptApp = fixture('ppt-app');
+                    const eventMock = { target: { label: 'Papel' } };
+                    pptApp.setValOfCurrentThrow(eventMock);
+                    expect(pptApp.cpuThrowForCompute).be.within(0,1);
+                });
+
+                test('Usuario tira tijeras y CPU tira aleatorio para computar', function () {
+                    const pptApp = fixture('ppt-app');
+                    const eventMock = { target: { label: 'Tijeras' } };
+                    pptApp.setValOfCurrentThrow(eventMock);
+                    expect(pptApp.cpuThrowForCompute).be.within(0,1);
+                });
+            });
+
+        });
+
+
+    </script>
+</body>
+
+</html>

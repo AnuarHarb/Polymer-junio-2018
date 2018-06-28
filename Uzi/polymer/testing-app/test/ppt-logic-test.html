@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PPT LOGIC Tester</title>
+    <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <link rel="import" href="../src/ppt-logic.html">
+</head>
+
+<body>
+    <test-fixture id="ppt-logic">
+        <template>
+            <ppt-logic></ppt-logic>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('Test para PPT LOGIC', function () {
+            suite('Decisión correcta del ganador del juego', function () {
+                // TESTS PARA OPCIONES DE PIEDRA
+                test('Piedra vs Piedra es Empate', function (done) {
+                    const pptLogic = fixture('ppt-logic');
+                    pptLogic.userThrow = 'Piedra';
+                    pptLogic.cpuThrow = 0;
+                    pptLogic.addEventListener('result-obtained', function (event) {
+                        assert.equal(event.detail.result, 'Empate');
+                        done();
+                    });
+                    pptLogic.bootGame();
+                });
+
+                test('Piedra vs Papel es Pierdes', function (done) {
+                    const pptLogic = fixture('ppt-logic');
+                    pptLogic.userThrow = 'Piedra';
+                    pptLogic.cpuThrow = 0.4;
+                    pptLogic.addEventListener('result-obtained', function (event) {
+                        assert.equal(event.detail.result, 'Pierdes');
+                        done();
+                    });
+                    pptLogic.bootGame();
+                });
+
+                test('Piedra vs Tijeras es Ganas', function (done) {
+                    const pptLogic = fixture('ppt-logic');
+                    pptLogic.userThrow = 'Piedra';
+                    pptLogic.cpuThrow = 0.8;
+                    pptLogic.addEventListener('result-obtained', function (event) {
+                        assert.equal(event.detail.result, 'Ganas');
+                        done();
+                    });
+                    pptLogic.bootGame();
+                });
+
+                // TESTS PARA OPCIONES DE PAPEL
+                test('Papel vs Piedra es Ganas', function (done) {
+                    const pptLogic = fixture('ppt-logic');
+                    pptLogic.userThrow = 'Papel';
+                    pptLogic.cpuThrow = 0;
+                    pptLogic.addEventListener('result-obtained', function (event) {
+                        assert.equal(event.detail.result, 'Ganas');
+                        done();
+                    });
+                    pptLogic.bootGame();
+                });
+
+                test('Papel vs Papel es Empate', function (done) {
+                    const pptLogic = fixture('ppt-logic');
+                    pptLogic.userThrow = 'Papel';
+                    pptLogic.cpuThrow = 0.4;
+                    pptLogic.addEventListener('result-obtained', function (event) {
+                        assert.equal(event.detail.result, 'Empate');
+                        done();
+                    });
+                    pptLogic.bootGame();
+                });
+
+                test('Papel vs Tijeras es Pierdes', function (done) {
+                    const pptLogic = fixture('ppt-logic');
+                    pptLogic.userThrow = 'Papel';
+                    pptLogic.cpuThrow = 0.8;
+                    pptLogic.addEventListener('result-obtained', function (event) {
+                        assert.equal(event.detail.result, 'Pierdes');
+                        done();
+                    });
+                    pptLogic.bootGame();
+                });
+
+                // TESTS PARA OPCIONES DE TIJERAS
+                test('Tijeras vs Piedra es Pierdes', function (done) {
+                    const pptLogic = fixture('ppt-logic');
+                    pptLogic.userThrow = 'Tijeras';
+                    pptLogic.cpuThrow = 0;
+                    pptLogic.addEventListener('result-obtained', function (event) {
+                        assert.equal(event.detail.result, 'Pierdes');
+                        done();
+                    });
+                    pptLogic.bootGame();
+                });
+
+                test('Tijeras vs Papel es Ganas', function (done) {
+                    const pptLogic = fixture('ppt-logic');
+                    pptLogic.userThrow = 'Tijeras';
+                    pptLogic.cpuThrow = 0.4;
+                    pptLogic.addEventListener('result-obtained', function (event) {
+                        assert.equal(event.detail.result, 'Ganas');
+                        done();
+                    });
+                    pptLogic.bootGame();
+                });
+
+                test('Tijeras vs Tijeras es Empate', function (done) {
+                    const pptLogic = fixture('ppt-logic');
+                    pptLogic.userThrow = 'Tijeras';
+                    pptLogic.cpuThrow = 0.8;
+                    pptLogic.addEventListener('result-obtained', function (event) {
+                        assert.equal(event.detail.result, 'Empate');
+                        done();
+                    });
+                    pptLogic.bootGame();
+                });
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
