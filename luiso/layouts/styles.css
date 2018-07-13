@@ -1,0 +1,175 @@
+:root{
+    --brand-color: gainsboro;
+    --brand-color-complement: dimgray;
+    --brand-color-secondary: darkgray;
+    --brand-green: limegreen;
+    --brand-white: ghostwhite;
+}
+body{
+    font-family: sans-serif, Georgia;
+}
+.website__header{
+    margin: 0;
+}
+.navbar{
+    background: var(--brand-color-complement);
+    color: var(--brand-white);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+}
+.navbar__list{
+    list-style: none;
+    margin: 0;
+    display: flex; 
+    justify-content: flex-start
+}
+.navbar__item{
+    padding: 5px;
+}
+.navbar__link{
+    color: var(--brand-white);
+    text-transform: uppercase;
+    text-decoration: none;
+}
+searchbar{
+    display: flex;
+    align-items: center;
+}
+.searchbar__icon .lupa{
+    max-width: 25px;
+}
+.searchbar__input{
+    align-self: center;
+    border-radius: 10px;
+}
+.website__title{
+    background: var(--brand-color-secondary);
+    color: var(--brand-white);
+    text-align: center;
+    margin: 0;
+    padding: 30px 0;
+}
+.--tablet--desktop{
+    display:none;
+}
+
+.articles{
+    display: flex;
+    justify-content: space-around;
+}
+.new-article{
+    margin: 30px 10px;
+}
+.article__image{
+    max-width: 150px;
+    margin: 0 auto;
+    min-height: 116px;
+}
+.article__image img{
+    max-width: 99%;
+}
+
+.article__title--gray{
+    color: var(--brand-color-secondary);
+    align-self: center;
+    margin: 0 0 5px 0;
+    text-align: center;
+    font-weight: 100;
+}
+.article__title--black{
+    align-self: center;
+    margin: 0 0 10px 0;
+    text-align: center;
+    font-weight: 100;
+}
+
+.article__description{
+    text-align: left;
+}
+.articles__complements{
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+}
+.quote--big{
+    font-size: 2.5em;
+}
+.article__last{
+    display: flex;
+}
+.article__last--info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.footer__section{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.footer__button--green{
+    background: var(--brand-green);
+    color: var(--brand-white);
+    font-size: 1.5em;
+    border-radius: 10px;
+    padding: 10px 20px;
+    
+}
+@media screen and (min-width: 320px){
+    .article--tablet, .article--desktop, .articles__complements{
+        display: none;
+    }
+}
+@media screen and (min-width: 480px){
+    .website__title{
+        background: url("img/backpackwall.jpg")center left;
+        background-repeat: no-repeat;
+        background-size: cover;
+        text-align: left;
+    }
+    .article--tablet{
+        display: block;
+    }
+    .articles__complements{
+        display: grid;
+    }
+    .quote{
+        display: flex;
+    }
+    .quote__autor--small{
+        align-self: flex-end;
+    }
+    .article__last{
+        display: none;
+    }
+    .article__title--black.--green{
+        color: var(--brand-green);
+    }
+    .--tablet--desktop{
+        display: block;
+    }
+}
+@media screen and (min-width: 1024px){
+    .article--desktop, .article__last{
+        display: block;
+    }
+    .quote{
+        display: flex;
+    }
+    .quote--big{
+        text-align: justify;
+    }
+    .quote--big, .quote__autor--small{
+        margin: 10px;
+        padding: 20px 10px;
+    }
+    .quote__autor--small{
+        align-self: flex-end;
+        min-width: 65px;
+    }
+    .quote--big{
+        font-size: 2.3em;
+    }
+    .article__title--gray.--green{
+        color: var(--brand-green);
+    }
+}
