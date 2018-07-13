@@ -1,0 +1,56 @@
+<template>
+  <div class="slide__load">
+    <div id="load__bar" class="slide__bar"></div>
+  </div>
+  <style>
+  .slide__bar{
+    width: 0%;
+    height: 20px;
+    background-color: #03132c;
+  }
+  </style>
+</template>
+<script type="text/javascript">
+(function barElement(customElements, document) {
+  'use strict';
+  class MyBar extends HTMLElement {
+
+    static get observedAttributes(){
+      return ['speed'];
+    }
+    constructor(){
+      super();
+      this.speed;
+      const shadowRoot = this.attachShadow({mode: 'open'}); // Abrimos el shadow root y lo añadimos a una variable
+      const templ = document.currentScript.ownerDocument.querySelector('template');
+      shadowRoot.appendChild(document.importNode(templ.content, true));
+    }
+
+    attributeChangedCallback(name, oldVal, newVal) { // escucha el cambio de atributo
+      if(name === 'speed') {
+        this.speed = newVal;
+        console.log(this.speed);
+      }
+    }
+
+    get speed(){
+      return this.getAttribute('speed');
+    }
+
+    set speed(val){
+      if (this.speed == val) {
+        return
+      }
+      this.setAttribute('speed', val)
+    }
+
+    _loadBar(element){
+      
+    };
+
+  }
+  customElements.define('bar-component', MyBar);
+
+
+})(window.customElements, document);
+</script>

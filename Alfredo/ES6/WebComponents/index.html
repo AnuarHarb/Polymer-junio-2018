@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Bar Load</title>
+    <link rel="import" href="bar-component.html">
+  </head>
+  <body>
+    <bar-component></bar-component>
+    <button type="button" name="button" value="speed">Hey click me!</button>
+    <style media="screen">
+    button {
+      background-color: green;
+      color: white;
+    }
+    </style>
+    <script type="text/javascript">
+    const myElement = document.querySelector('button');
+    const valueBtn = document.querySelector('bar-component');
+    myElement.addEventListener('click', () => {
+      valueBtn.setAttribute('speed', 200);
+    })
+    </script>
+  </body>
+</html>

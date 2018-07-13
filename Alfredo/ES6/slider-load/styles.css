@@ -1,0 +1,27 @@
+h1{
+  margin: 0;
+  position: absolute;
+  left: 40%;
+}
+
+:root{
+  --bar-color: #03132c;
+}
+
+.slide__bar{
+  width: .5%;
+  height: 20px;
+  background-color: var(--bar-color);
+}
+
+.slide__button{
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  display: flex;
+  top: 80px;
+  height: 40px;
+  width: 100px;
+  border-radius: 20px;
+  justify-content: center;
+}

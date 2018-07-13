@@ -1,0 +1,24 @@
+:root{
+  --brand-color: #03132c;
+}
+
+h1 {
+	margin: 1em 0;
+	text-align: center;
+}
+.container {
+  margin: 0 auto;
+  width: 50%;
+  border: 2px solid var(--brand-color);
+}
+
+.tab__title{
+  background-color: var(--brand-color);
+}
+
+.input__title{
+  border-radius: 4px;
+  width: 150px;
+  height: 20px
+}
+  

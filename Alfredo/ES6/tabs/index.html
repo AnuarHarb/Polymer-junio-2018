@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="container" class="container">
+      <div id="tabTitle" class="tab__title">
+        <button onclick="openTab('tab')">tab1</button>
+        <button onclick="openTab('tab2')">tab2</button>
+      </div>
+      <div id="tab" class="tab__content city">
+        <h2>Agrega una nueva tab</h2>
+        <input id="tab_title" class="input__title" type="text" name="" value="">
+        <button id="btnCreate" class="button__newTab" type="button" name="button">Nueva tab</button>
+      </div>
+      <div id="tab2" class="tab__content" style="display:none">
+        <h1>...</h1>
+      </div>
+    </div>
+  </body>
+  <script src="index.js" async></script>
+</html>
