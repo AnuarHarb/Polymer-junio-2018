@@ -1,0 +1,136 @@
+<script>
+    (function(customElements) {
+        'use strict';
+
+        class MenuElement extends HTMLElement {
+
+            static get observedAttributes() {
+                return ['foto','nombre','telefono','direccion'];
+            }
+
+            constructor() {
+                super();
+                this.foto = "";
+                this.nombre = "";
+                this.telefono = "";
+                this.direccion = "";
+
+                const shadowRoot = this.attachShadow({mode: 'open'});
+
+                shadowRoot.innerHTML = `
+                <style>
+                .perfil{
+                    border: black solid 2px;
+                    display: grid;
+                    grid-template-columns: 30% 70%;
+                    height: 80px;
+                    padding: 3px;
+                    width: 97%;
+                }
+                .small__foto{
+                    height: 65px;
+                    padding: 5px;
+                    width: 55px;
+                }
+                .datos{
+                    display: flex;
+                    flex-direction: column;
+                    height: 70px;
+                    justify-content: center;
+                    padding: 5px;
+                    width: 100%;
+                }
+                .small__datos{
+                    font-size: 10px;
+                }
+            </style>
+
+            <div class="perfil">
+            </div>
+                `;
+            }
+
+            get foto() {
+                return this.getAttribute('foto');
+            }
+
+            get nombre() {
+                return this.getAttribute('nombre');
+            }
+
+            get telefono() {
+                return this.getAttribute('telefono');
+            }
+
+            get direccion() {
+                return this.getAttribute('direccion');
+            }
+
+            connectedCallback(){
+                this.addEventListener('click', this._onClick.bind(this));
+            }
+
+            attributeChangedCallback(attrName, oldVal, newVal) {
+                if(attrName === 'foto' && oldVal != newVal) {
+                    this.foto = newVal;
+                    this.setDatos();
+                }
+                if(attrName === 'nombre' && oldVal != newVal) {
+                    this.nombre = newVal;
+                    this.setDatos();
+                }
+                if(attrName === 'telefono' && oldVal != newVal) {
+                    this.telefono = newVal;
+                    this.setDatos();
+                }
+                if(attrName === 'direccion' && oldVal != newVal) {
+                    this.direccion = newVal;
+                    this.setDatos();
+                }
+            }
+
+            set foto(val) {
+                this.setAttribute('foto', val);
+            }
+
+            set nombre(val){
+                this.setAttribute('nombre', val);
+            }
+
+            set telefono(val){
+                this.setAttribute('telefono', val);
+            }
+
+            set direccion(val){
+                this.setAttribute('direccion', val);
+            }
+
+            _onClick(event) {
+                this.dispatchEvent(new CustomEvent('my-element-clicked', {
+                    bubbles: true,
+                    composed: true,
+                    detail: {
+                        nombre: this.nombre,
+                        foto: this.foto,
+                        telefono: this.telefono,
+                        direccion: this.direccion
+                    }
+                }));
+            }
+
+            setDatos(){
+                const div = this.shadowRoot.querySelector('.perfil'); 
+                div.innerHTML = `
+                    <img class="small__foto" src="${this.foto}">
+                    <div class="datos">
+                        <label class="small__datos">${this.nombre}</label>
+                        <label class="small__datos">${this.telefono}</label>
+                        <label class="small__datos">${this.direccion}</label>
+                    </div>
+                `;
+            }
+
+        }
+        customElements.define('menu-component', MenuElement);
+    })(window.customElements)
+</script>

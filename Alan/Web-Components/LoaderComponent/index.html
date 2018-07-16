@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Loader</title>
+        <link rel="import" href="loader.html">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <my-loader></my-loader>
+        <nav class="nav__button">
+            <button class="empezar">EMPEZAR</button>
+        </nav>
+
+        <nav class="nav__img">
+                <img src="imagen1.jpg">
+        </nav>
+
+        <script>
+            const button = document.querySelector('.empezar');
+            const element = document.querySelector('my-loader');
+            const img = document.querySelector('.nav__img');
+            button.addEventListener('click', () => {
+                element.setAttribute('velocidad', 1500);
+            });
+            element.addEventListener('load-end', function(event) {
+                button.style.setProperty('display', 'none');
+                img.style.setProperty('display', 'flex');
+            })
+        </script>
+    </body>
+</html>

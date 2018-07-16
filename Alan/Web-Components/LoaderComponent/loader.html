@@ -1,0 +1,80 @@
+<template>
+    <style>
+        .relleno{
+            height:24px;
+            background-color: var(--brand-red);
+            width: 0%;
+            transition: width 1.2s;
+        }    
+    </style>
+    <div class="border">
+        <div class="relleno"></div>
+    </div>
+</template>
+
+<script>
+    (function myLoader(customElements){
+        'use-strict';
+
+        class MyLoader extends HTMLElement {
+            static get observedAttributes(){
+                return ['velocidad'];
+            }
+
+            constructor(){
+                super();
+                this.velocidad = 0;
+                var relleno = 0;
+
+                var proceso;
+
+                const shadowRoot = this.attachShadow({mode: 'open'});
+                const templ = document.currentScript.ownerDocument.querySelector('template');
+                const loader = document.currentScript.ownerDocument.querySelector('.relleno');
+
+                shadowRoot.appendChild(document.importNode(templ.content, true));
+
+            }
+
+            get velocidad(){ 
+                return this.getAttribute('velocidad');
+            }
+
+            set velocidad(val){ 
+                if(this.velocidad == val){
+                    return;
+                }
+                this.setAttribute('velocidad', val);
+            }
+
+            attributeChangedCallback(attrChange, oldVal, newVal){
+                if(attrChange == 'velocidad' && oldVal != newVal) {
+                    this.velocidad = newVal;
+                    this.rellenado(this.velocidad);
+                }
+            }
+
+            rellenado(velocidad){
+                let relleno = 0;
+                let proceso = setInterval(() => {
+                    relleno = relleno + this.newRelleno();
+                    if(relleno<100){
+                        this.shadowRoot.querySelector('.relleno').style.setProperty('width', `${relleno}%`);
+                    }
+                    else{
+                        relleno = 99;
+                        clearInterval(proceso);
+                        this.shadowRoot.querySelector('.relleno').style.setProperty('display', 'none');
+                        this.dispatchEvent(new CustomEvent('load-end', {}));
+                    }
+                }, velocidad);
+            }
+
+            newRelleno(){
+                return Math.round(Math.random()*20)
+            }
+        }
+
+        customElements.define('my-loader', MyLoader);
+    })(window.customElements);
+</script>

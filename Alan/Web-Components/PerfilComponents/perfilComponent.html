@@ -1,0 +1,118 @@
+<script>
+    (function(customElements) {
+        'use strict';
+
+        class PerfilComponent extends HTMLElement {
+            static get observedAttributes() {
+                return ['foto','nombre','telefono','direccion'];
+            }
+
+            constructor() {
+                super();
+                this.foto = "";
+                this.nombre = "";
+                this.telefono = "";
+                this.direccion = "";
+
+                const shadowRoot = this.attachShadow({mode: 'open'});
+
+                shadowRoot.innerHTML = `
+                <style>
+                .big__perfil{
+                    align-items: center;
+                    border: black solid;
+                    display: flex;
+                    flex-direction: column;
+                    float: left;
+                    height: 600px;
+                    justify-content: space-between;
+                    margin: 10px;
+                    padding: 20px;
+                    width: 500px;
+                }
+
+                .big__foto{
+                    height: 150px;
+                    width: 120px;
+                }
+
+                .big__datos{
+                    text-align: center;
+                    border: black solid;
+                    font-size: 20px;
+                    height: 70px;
+                    width: 250px;
+                }
+            </style>
+
+            <div class="big__perfil">
+            </div>
+                `;
+            }
+
+            get foto() {
+                return this.getAttribute('foto');
+            }
+
+            get nombre() {
+                return this.getAttribute('nombre');
+            }
+
+            get telefono() {
+                return this.getAttribute('telefono');
+            }
+
+            get direccion() {
+                return this.getAttribute('direccion');
+            }
+
+            attributeChangedCallback(attrName, oldVal, newVal) {
+                if(attrName === 'foto' && oldVal != newVal) {
+                    this.foto = newVal;
+                    this.loadPerfil();
+                }
+                if(attrName === 'nombre' && oldVal != newVal) {
+                    this.nombre = newVal;
+                    this.loadPerfil();
+                }
+                if(attrName === 'telefono' && oldVal != newVal) {
+                    this.telefono = newVal;
+                    this.loadPerfil();
+                }
+                if(attrName === 'direccion' && oldVal != newVal) {
+                    this.direccion = newVal;
+                    this.loadPerfil();
+                }
+            }
+
+            set foto(val) {
+                this.setAttribute('foto', val);
+            }
+
+            set nombre(val){
+                this.setAttribute('nombre', val);
+            }
+
+            set telefono(val){
+                this.setAttribute('telefono', val);
+            }
+
+            set direccion(val){
+                this.setAttribute('direccion', val);
+            }
+
+
+            loadPerfil() {
+                const div = this.shadowRoot.querySelector('.big__perfil'); 
+                div.innerHTML = `
+                    <img class="big__foto" src="${this.foto}">
+                    <label class="big__datos">${this.nombre}</label>
+                    <label class="big__datos">${this.telefono}</label>
+                    <label class="big__datos">${this.direccion}</label>
+                `;
+            }
+
+        }
+        customElements.define('perfil-component', PerfilComponent);
+    })(window.customElements)
+</script>

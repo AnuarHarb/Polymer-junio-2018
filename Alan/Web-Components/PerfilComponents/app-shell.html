@@ -1,0 +1,53 @@
+<link rel="import" href="perfilComponent.html">
+<link rel="import" href="menuPerfilComponent.html">
+<script>
+    (function(customElements) {
+        'use strict';
+
+        class AppShellElement extends HTMLElement {
+            constructor() {
+                super();
+                const shadowRoot = this.attachShadow({mode: 'open'});
+
+                shadowRoot.innerHTML = `
+                <style>
+                    .menu__perfil{
+                        border: black solid;
+                        display: flex;
+                        flex-direction: column;
+                        float: left;
+                        height: 600px;
+                        justify-content: flex-start;
+                        margin: 10px;
+                        padding: 20px;
+                        width: 270px;
+                    }
+                </style>
+                <perfil-component></perfil-component>
+                <div class="menu__perfil">
+                    <menu-component foto="imagen1.png" nombre="Alan Minor" telefono="5572019438" direccion="Calle azul No. 100 Polanco">
+                    </menu-component>
+                    <menu-component foto="imagen2.jpg" nombre="Adrian Torres" telefono="5527197723" direccion="Oriente 42. Cerrada Flores Dep.35">
+                    </menu-component>
+                    <menu-component foto="imagen3.jpg" nombre="Isabel Perez" telefono="5511998547" direccion="Avenida Torres 455, Colonia México">
+                    </menu-component>
+                </div>
+                
+                `;
+
+                const menu_element = shadowRoot.querySelectorAll('menu-component');
+                const perfil_element = shadowRoot.querySelector('perfil-component');
+                for(let elemento of menu_element){
+                    elemento.addEventListener('my-element-clicked', function(event) {
+                        perfil_element.setAttribute('nombre', event.detail.nombre);
+                        perfil_element.setAttribute('foto', event.detail.foto);
+                        perfil_element.setAttribute('telefono', event.detail.telefono);
+                        perfil_element.setAttribute('direccion', event.detail.direccion);
+                    })
+                }
+            }
+
+        }
+        customElements.define('appshell-component', AppShellElement);
+    })(window.customElements)
+</script>

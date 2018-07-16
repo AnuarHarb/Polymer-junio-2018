@@ -1,0 +1,75 @@
+<template id="myTemplate">
+    <style>
+            button {
+                background-color: red;
+                color: white;
+            }
+        </style>
+        <button>My element button</button>    
+</template>
+<script>
+    (function myElement(customElements){
+        'use-strict';
+
+        class MyElement extends HTMLElement { //Metodo para poder observar una propiedad desde afuera
+            static get observedAttributes(){
+                return ['selected'];
+            }
+
+            constructor(){
+                super();//Obtener propiedades del padre (HTMLElement)
+                this.selected = true;
+
+                const shadowRoot = this.attachShadow({mode: 'open'}); //Modo abierto que podemos entrar a ese shadowDom(Scope del webComponent)
+                const templ = document.currentScript.ownerDocument.querySelector('template');//Currentscruipt.ownerDocument es para tomar el template de este documento. YA que sin eso no lo encontraria
+
+                shadowRoot.appendChild(document.importNode(templ.content, true));
+
+                // shadowRoot.innerHTML = `
+                // <style>
+                //     button {
+                //         background-color: red;
+                //         color: white;
+                //     }
+                // </style>
+                // <button>My element button</button>
+                // `;
+            }
+
+            get selected(){ //Metodo para agregar valor de un atributo en una propiedad
+                return this.getAttribute('selected');
+            }
+
+            set selected(val){ //Refleja el valor de la propiedad en el atributo
+                /*if(this.selected == val){
+                    return;
+                }*/
+                this.setAttribute('selected', val);
+            }
+
+            attributeChangeCallback(attrChange, oldVal, newVal){
+                if(attrChange == 'selected' && oldVal != newVal) {
+                    this.selected = newVal;
+                }
+            }
+
+            connectedCallback(){
+                this.addEventListener('click', this._onClick.bind(this));
+                this.dispatchEvent(new CustomEvent('element-clicked', {
+                    bubbles: true, //propiedad para que el evento pueda ser cachado en cualquier lugar
+                    composed: true,
+                    detail: {
+                        active: false,
+                        name: "alan"
+                    }
+                }));
+            }
+
+            _onClick() {
+                this.shadowRoot.querySelector('button').innerHTML = 'me hicieron click';
+            }
+        }
+
+        customElements.define('my-element', MyElement);
+    })(window.customElements);
+</script>
