@@ -1,0 +1,21 @@
+:root {
+    --progress:0%;
+    --blue: rgb(62, 139, 240);
+}
+
+button {
+    padding: 20px;
+}
+
+.loader {
+    margin: 10px 0;
+    padding: 0;
+    height: 20px;
+    width: var(--progress);
+    background-color: var(--blue);
+    transition: all 1s ease-out;
+}
+
+.dog {
+    display: none;
+}
