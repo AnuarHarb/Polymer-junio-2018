@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="contact-item">
+	<template>
+		<style>
+	    .content-card { 
+	      display: flex; 
+	      margin: 10px;
+	      padding: 10px;
+	      border-radius: 5px;
+	    }
+	    .contac-information {
+	      width: 100%;
+	      display: flex;
+	      flex-direction: column;
+	      align-items: center;
+	    }
+	    img { height: 130px; }
+	    paper-card { width: 100%; }
+	    paper-card picture { 
+	    	display: flex;
+  		  justify-content: center; 
+  		}
+	  </style>
+
+	  <div class="content-card">
+	  	<paper-card>
+		    <div class="card-content">		      
+		      <template is="dom-if" if="[[favorite]]">
+			  		<div class="picture">
+				      <picture>
+				        <img src="../src/img/[[getPhotoInitial(photos)]]">
+				      </picture>
+				    </div>
+			  	</template>
+			    <div class="contac-information">
+			      <p class="contact-name">[[name]]</p>
+			      <p class="contact-phone">[[phone]]</p>
+			    </div>
+		    </div>
+		  </paper-card>
+	  </div>
+	</template>
+
+	<script>
+		(function contactItem(customElements) {
+			class ContactItem extends Polymer.Element {
+				static get is() { return 'contact-item'; }
+				static get properties() {
+					return {
+						name: String,
+						phone: String,
+						favorite: Boolean,
+						direction: String,
+						email: String,
+						photos: String,
+						contacts: Array
+					}
+				}				
+				getPhotoInitial(photos) {
+					return photos[0];
+				}
+			}
+
+			customElements.define(ContactItem.is, ContactItem);
+		})(window.customElements);
+	</script>
+</dom-module>

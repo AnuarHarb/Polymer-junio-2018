@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <link rel="import" href="/src/slider-test.html">
+</head>
+<body>
+  <test-fixture id="slider-test-slow">
+    <template>
+      <slider-test speed="slow"></slider-test>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="slider-test-fast">
+    <template>
+      <slider-test speed="fast"></slider-test>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('Test for Slider Load Component', () => {
+      let sliderTargetFast, sliderTargetSlow;
+      setup(() => {
+        sliderTargetFast = fixture('slider-test-fast');
+        sliderTargetSlow = fixture('slider-test-slow');
+      });
+      suite('Test for the time between each iteration', () => {
+        test('Test for slow speed', () => {
+          expect(sliderTargetSlow.getTime(sliderTargetSlow.getValuesSpeedDirectory('slow').time)).to.be.within(6, 10);
+        });
+        test('Test for fast speed', () => {
+          expect(sliderTargetFast.getTime(sliderTargetFast.getValuesSpeedDirectory(sliderTargetFast.speed).time)).to.be.within(1, 4);
+        });
+      });
+
+      suite('Test for the growth of the bar between each iteration', () => {
+        test('Test for slow speed', () => {
+          expect(sliderTargetSlow.getAdvance(sliderTargetSlow.getValuesSpeedDirectory('slow').advance)).to.be.within(1, 20);
+        });
+        test('Test for fast speed', () => {
+          expect(sliderTargetFast.getAdvance(sliderTargetFast.getValuesSpeedDirectory(sliderTargetFast.speed).advance)).to.be.within(1, 60);
+        });
+      });
+
+      suite('Test for the message of success', () => {
+        test('Test for finish in slow speed', (done) => {
+          sliderTargetSlow.addEventListener('load-finished', function(event) {
+            assert.equal(event.detail.message, 'Finish in slow mode');
+            done();
+          });
+          sliderTargetSlow.showMessageSuccess('slow');
+        });
+        test('Test for finish in fast speed', (done) => {
+          sliderTargetFast.addEventListener('load-finished', function(event) {
+            assert.equal(event.detail.message, 'Finish in fast mode');
+            done();
+          });
+          sliderTargetFast.showMessageSuccess(sliderTargetFast.speed);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="contact-item.html">
+<link rel="import" href="contact-detail.html">
+
+<dom-module id="app-shell">
+	<template>
+		<style>
+			.content, .button{
+	      display: flex;
+	      justify-content: flex-end;
+	    }
+	    .button { 
+				justify-content: center;
+				width: 40%;
+				float: right; 
+  		}
+	    .contacts-detail, .contacts-items, .content, .button{ height: 100%; }
+	    .contacts-detail { width: 60%; }
+	    .contacts-items { width: 40%; }
+	    paper-dialog { width: 40%; }
+		</style>
+		<div class="content">
+			<div class="contacts-detail">
+				<contact-detail id="contactDetail" contacts="{{contacts}}"></contact-detail>
+			</div>
+			<div class="contacts-items">
+				<template is="dom-repeat" items="[[contacts]]">
+					<contact-item name="[[item.name]]" phone="[[item.phone]]" favorite="[[item.favorite]]" direction="[[item.direction]]" email="[[item.email]]" photos="[[item.photos]]" on-click="showContactDetail" id-contact="[[item.id]]"></contact-item>
+				</template>
+			</div>
+		</div>
+		<div class="button">
+			<paper-button on-click="newContactModal" raised>Nuevo Contacto</paper-button>
+		</div>
+
+		<paper-dialog id="modal" modal>
+		  <paper-input label="Nombre" value="{{contactName}}"></paper-input>
+		  <paper-input label="Telefono" value="{{contactPhone}}"></paper-input>
+		  <paper-input label="Direccion" value="{{contactDirection}}"></paper-input>
+		  <paper-input label="Email" value="{{contactEmail}}"></paper-input>
+		  <paper-checkbox checked="{{contactFavorite}}">Favorito</paper-checkbox>
+		  <div class="buttons">
+		    <paper-button autofocus on-click="saveContact">Aceptar</paper-button>
+		  </div>
+		</paper-dialog>
+	</template>
+
+	<script>
+		(function AppShell(customElements) {
+			class AppShell extends Polymer.Element {
+				static get is() { return 'app-shell'; }
+				static get properties() { 
+					return {
+						contacts: {
+							type: Array,
+							value: [
+								{
+									id: 1,
+									name: 'Damian',
+									phone: '5514977119',
+									favorite: true,
+									direction: 'Mariano Escobedo 18',
+									email: 'damian@hotmail.com',
+									photos: ['damian1.png', 'damian2.png', 'damian3.png']
+								},
+								{
+									id: 2,
+									name: 'Juan',
+									phone: '0000000000',
+									favorite: false,
+									direction: 'Mariano Escobedo 1222',
+									email: 'juan@hotmail.com',
+								},
+								{
+									id: 3,
+									name: 'Juanita',
+									phone: '123456789',
+									favorite: true,
+									direction: 'Mariano Escobedo 333',
+									email: 'juanita@hotmail.com',
+									photos: ['juanita1.png', 'juanita2.png', 'juanita3.png']
+								}
+							]
+						}
+					}
+				}
+				newContactModal(e) {
+					this.$.modal.open();
+				}
+				showContactDetail(e) {
+					const contactDetail = this.$.contactDetail;
+					contactDetail.contactId = e.target.idContact;
+					contactDetail.name = e.target.name;
+					contactDetail.phone = e.target.phone;
+					contactDetail.favorite = e.target.favorite;
+					contactDetail.direction = e.target.direction;
+					contactDetail.email = e.target.email;
+					contactDetail.photos = e.target.photos;
+					contactDetail.selected = true;
+				}
+				saveContact(e) {
+					this.push('contacts', {
+						name: this.contactName,
+						phone: this.contactPhone,
+						direction: this.contactDirection,
+						email: this.contactEmail,
+						favorite: this.contactFavorite,
+						photos: ['user1.png']
+					});
+					this.$.modal.close();
+				}
+			}
+
+			customElements.define(AppShell.is, AppShell);
+		})(window.customElements);
+	</script>
+</dom-module>
