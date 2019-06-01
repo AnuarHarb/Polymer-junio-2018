@@ -1,0 +1,135 @@
+<template id="contact_detail">
+    <style>
+        .main__div {
+            text-align: center;
+        }
+    </style>
+
+    <!-- <div>
+        <h1>Welcome to Dir</h1>
+    </div> -->
+
+    <div class="main__div">
+        <figure>
+            <img src="assets/emma.png" class="thumbnail__img" alt="">
+        </figure>
+
+        <h2 class="name__h2"></h2>
+        <p>
+            <strong>Phone: </strong> <span class="phone__p"></span>
+        </p>
+        <p>
+            <strong>Address: </strong> <span class="address__p"></span>
+        </p>
+    </div>
+
+
+</template>
+
+<script>
+    (function appShell(customElements) {
+        'use strict'
+
+        class ContactDetail extends HTMLElement {
+
+            static get observedAttributes() {
+                return ['thumbnail', 'name', 'phone', 'address'];
+            }
+
+            constructor() {
+                super();
+                this.thumbnail;
+                this.name;
+                this.phone;
+                this.address;
+
+                const shadowRoot = this.attachShadow({ mode: 'open' });
+                const templ = document.currentScript.ownerDocument.querySelector('#contact_detail');
+                shadowRoot.appendChild(document.importNode(templ.content, true));
+            }
+
+            // G E T S
+
+            get thumbnail() {
+                return this.getAttribute('thumbnail');
+            }
+
+            get name() {
+                return this.getAttribute('name');
+            }
+
+            get phone() {
+                return this.getAttribute('phone');
+            }
+
+            get address() {
+                return this.getAttribute('address');
+            }
+
+            //S E T S
+
+            set thumbnail(val) {
+                if (this.thumbnail == val) {
+                    return;
+                }
+                this.setAttribute('thumbnail', val);
+            }
+
+            set name(val) {
+                if (this.name == val) {
+                    return;
+                }
+                this.setAttribute('name', val);
+            }
+
+            set phone(val) {
+                if (this.phone == val) {
+                    return;
+                }
+                this.setAttribute('phone', val);
+            }
+
+            set address(val) {
+                if (this.address == val) {
+                    return;
+                }
+                this.setAttribute('address', val);
+            }
+
+            attributeChangedCallback(attrChange, oldVal, newVal) {
+                const thumbnail = this.shadowRoot.querySelector('.thumbnail__img')
+                const name = this.shadowRoot.querySelector('.name__h2');
+                const phone = this.shadowRoot.querySelector('.phone__p');
+                const address = this.shadowRoot.querySelector('.address__p');
+
+
+                if (attrChange == 'thumbnail') {
+                    this.thumbnail = newVal;
+                    thumbnail.src = newVal;
+                    console.log(`Thumbnail changed! for ${newVal}`);
+                } else if (attrChange == 'name') {
+                    this.name = newVal;
+                    name.innerText = newVal;
+                    console.log(`Name changed! for ${newVal}`);
+                } else if (attrChange == 'phone') {
+                    this.phone = newVal;
+                    phone.innerText = newVal;
+                    console.log(`Phone changed! for ${newVal}`);
+                } else if (attrChange == 'address') {
+                    this.address = newVal;
+                    address.innerText = newVal;
+                    console.log(`Address changed! for ${newVal}`);
+                } else {
+                    return;
+                }
+            }
+
+            connectedCallback() {
+                console.log('Detail element charged!');
+            }
+        }
+
+        customElements.define('contact-detail', ContactDetail); //Definimos el componente
+
+    })(window.customElements); //Para no manejar todo el objeto window, solo pasamos CustomElements
+</script>

@@ -1,0 +1,118 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="ppt-button.html">
+<link rel="import" href="ppt-logic.html">
+
+<dom-module id="ppt-app">
+    <template>
+        <style>
+            .main__div {
+                min-height: 100vh;
+            }
+
+            .day {
+                background-color: #56B2E0;
+            }
+
+            .night {
+                background-color: #161D26;
+            }
+
+            .main__img {
+                width: 100%;
+            }
+
+            .content__div {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 1em;
+                box-sizing: border-box;
+                color: white;
+                text-align: center;
+            }
+        </style>
+
+        <ppt-logic id="logic_component" user-throw="[[userThrowForCompute]]" cpu-throw="[[cpuThrowForCompute]]" on-result-obtained="setComputedResult">
+        </ppt-logic>
+
+        <div class="main__div day">
+            <div class="content__div">
+                <h1>Piedra, Papel o Tijeras</h1>
+                <h2>Elegir:</h2>
+
+                <ppt-button label="Piedra" on-click="setValOfCurrentThrow"></ppt-button>
+                <ppt-button label="Papel" on-click="setValOfCurrentThrow"></ppt-button>
+                <ppt-button label="Tijeras" on-click="setValOfCurrentThrow"></ppt-button>
+
+                <h3>Usuario: [[computedUserThrow]]</h3>
+                <h3>Computadora: [[computedCpuThrow]]</h3>
+                <h2>[[gameResult]]!</h2>
+            </div>
+
+            <paper-button>Night mode</paper-button>
+        </div>
+
+
+    </template>
+
+    <script>
+        (function pptApp(customElements) {
+            'use strict';
+
+            class PptApp extends Polymer.Element {
+                static get is() { return 'ppt-app'; }
+                static get properties() {
+                    return {
+                        userThrowForCompute: String,
+                        cpuThrowForCompute: Number,
+                        computedUserThrow: {
+                            type: String,
+                            value: 'Esperando tiro'
+                        },
+                        computedCpuThrow: {
+                            type: String,
+                            value: 'Esperando random'
+                        },
+                        gameResult: {
+                            type: String,
+                            value: '...'
+                        }
+                    }
+                }
+
+                generateRandom() {
+                    const randomNumber = (Math.round((Math.random()) * 100) / 100);
+
+                    return randomNumber;
+                }
+
+                setValOfCurrentThrow(event) {
+                    if (event.target.label == 'Piedra') {
+                        this.cpuThrowForCompute = this.generateRandom();
+                        this.userThrowForCompute = 'Piedra';
+                        this.$.logic_component.bootGame();
+                    } else if (event.target.label == 'Papel') {
+                        this.cpuThrowForCompute = this.generateRandom();
+                        this.userThrowForCompute = 'Papel';
+                        this.$.logic_component.bootGame();
+                    } else if (event.target.label == 'Tijeras') {
+                        this.cpuThrowForCompute = this.generateRandom();
+                        this.userThrowForCompute = 'Tijeras';
+                        this.$.logic_component.bootGame();
+                    } else {
+                        console.error('Wronn event sent');
+                    }
+
+                }
+
+                setComputedResult(event) {
+                    this.computedUserThrow = event.detail.user;
+                    this.computedCpuThrow = event.detail.computer;
+                    this.gameResult = event.detail.result;
+                }
+            }
+            customElements.define(PptApp.is, PptApp);
+        })(window.customElements);
+    </script>
+</dom-module>

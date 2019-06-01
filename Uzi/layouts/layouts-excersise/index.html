@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Hill Valley Bikes</title>
+</head>
+
+<body>
+    <header>
+        <!-- Navbar in mobile -->
+        <nav class="navbar__superior--mobile">
+            <button class="navbar__menu--mobile toggleSidenav">
+                <i class="material-icons" id="menu__btn">&#xe3c7;</i>
+            </button>
+        </nav>
+
+        <!-- Navbar in tablet and desktop -->
+        <nav class="navbar__superior--desktop">
+            <ul class="navbar__list--desktop">
+                <li class="navbar__item--desktop">
+                    <a class="navbar__links" href="">Home</a>
+                </li>
+                <li class="navbar__item--desktop">
+                    <a class="navbar__links" href="">Shop</a>
+                </li>
+                <li class="navbar__item--desktop">
+                    <a class="navbar__links" href="">Specialst</a>
+                </li>
+                <li class="navbar__item--desktop">
+                    <a class="navbar__links" href="">Support</a>
+                </li>
+                <li class="navbar__item--desktop">
+                    <a class="navbar__links" href="">Cycling Club</a>
+                </li>
+            </ul>
+
+            <ul class="navbar__actions--desktop">
+                <li>
+                    <input id="search__input" type="text">
+                    <button>
+                        <i class="material-icons" id="search__btn">search</i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="navbar__inferior">
+            <h1 class="navbar__title">Hill Valley Bikes</h1>
+        </nav>
+    </header>
+
+    <main>
+        <div class="main__content">
+            <div class="main__articles">
+                <img class="article__img" src="assets/ar1.png" alt="">
+                <h3 class="gray__text">The all new</h3>
+                <h3 class="green__text">Lightining Bolt</h3>
+                <p class="gray__text article__preview">Our newest bike is so fast you'd swear you'd gone back in time</p>
+            </div>
+            <div class="main__articles">
+                <img class="article__img" src="assets/ar2.png" alt="">
+                <h3 class="gray__text">The Classic</h3>
+                <h3 class="green__text">Starter</h3>
+                <p class="gray__text article__preview">The starter will work when you need to reach that important date on time</p>
+            </div>
+            <div class="main__articles" id="third__article">
+                <img class="article__img" src="assets/ar3.png" alt="">
+                <h3 class="gray__text">Move cargo with</h3>
+                <h3 class="green__text">The Capacitor</h3>
+                <p class="gray__text article__preview">You need to move stuf. Our cargo-carrying bike won't leave you in flux</p>
+            </div>
+            <div class="main__articles" id="fourth__article">
+                <img class="article__img" src="assets/ar4.png" alt="">
+                <h3 class="gray__text">Great gift</h3>
+                <h3 class="green__text">Certificates</h3>
+                <p class="gray__text article__preview">Give your loved ones the ability to move under their own power </p>
+            </div>
+        </div>
+
+        <div class="last__section">
+            <div class="quote__section">
+                <h2 class="gray__text" id="quotation__text">"Great Scott , this is a great ride. I wouldn't be without my Classic Starter!"</h2>
+                <p class="author__text">- Robert Z.</p>
+            </div>
+
+            <div class="last__article">
+                <h3 class="lartilce__title green__text">From the blog: Struck by Lightining</h3>
+                <div class="lastarticle__text">
+                    <p>How do you improve upon a great boike series? We wanted to outpace the competition, so we developed our
+                        speediest bike to date. The new Lightining...
+                        <br>
+                        <a class="blue__anchor" href="">Read more</a>
+                    </p>
+                </div>
+                <div class="lastarticle__image">
+                    <img class="lastarticle__img" src="assets/arf.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="button__zone">
+            <button id="big__button">Find your perfect ride</button>
+        </div>
+
+    </main>
+
+    <nav class="sidenav">
+        <span class="toggleSidenav">x</span>
+        <ul class="sidenav__list">
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Home</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Shop</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Specialist</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Support</a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link" href="">Cycling Club</a>
+            </li>
+        </ul>
+    </nav>
+
+    <script src="index.js" async></script>
+
+</body>
+
+</html>

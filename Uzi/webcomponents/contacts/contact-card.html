@@ -1,0 +1,116 @@
+<template id="contact_card">
+    <style>
+        .main__div {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+        }
+
+        .thumbnail__img {
+            width: 100%;
+        }
+
+        .info__aside {
+            padding-left: 10px;
+        }
+    </style>
+
+    <div class="main__div">
+        <div class="thumbnail__figure">
+            <img class="thumbnail__img" src="assets/emma.png" alt="">
+        </div>
+
+        <aside class="info__aside">
+            <h3 class="name__h3"></h3>
+            <p class="phone__p"></p>
+            <p class="address__p"></p>
+        </aside>
+    </div>
+
+
+</template>
+
+<script>
+    (function appShell(customElements) {
+        'use strict'
+
+        class ContactCard extends HTMLElement {
+
+            static get observedAttributes() {
+                return ['thumbnail', 'name', 'phone', 'address'];
+            }
+
+            constructor() {
+                super();
+                this.thumbnail;
+                this.name;
+                this.phone;
+                this.address;
+
+                const shadowRoot = this.attachShadow({ mode: 'open' });
+                const templ = document.currentScript.ownerDocument.querySelector('#contact_card');
+                shadowRoot.appendChild(document.importNode(templ.content, true));
+            }
+
+            // G E T S
+
+            get thumbnail() {
+                return this.getAttribute('thumbnail');
+            }
+
+            get name() {
+                return this.getAttribute('name');
+            }
+
+            get phone() {
+                return this.getAttribute('phone');
+            }
+
+            get address() {
+                return this.getAttribute('address');
+            }
+
+            attributeChangeCallback(attrChange, oldVal, newVal) {
+                if (attrChange == 'thumbnail') {
+                    this.thumbnail = newVal;
+                } else if (attrChange == 'name') {
+                    this.name = newVal;
+                } else if (attrChange == 'phone') {
+                    this.phone = newVal;
+                } else if (attrChange == 'address') {
+                    this.address = newVal;
+                } else {
+                    return;
+                }
+            }
+
+            connectedCallback() {
+                const thumbnail = this.shadowRoot.querySelector('.thumbnail__img');
+                const name = this.shadowRoot.querySelector('.name__h3');
+                const phone = this.shadowRoot.querySelector('.phone__p');
+                const address = this.shadowRoot.querySelector('.address__p');
+
+                thumbnail.src = this.thumbnail;
+                name.innerHTML = this.name;
+                phone.innerHTML = this.phone;
+                address.innerHTML = this.address;
+
+                this.addEventListener('click', this._onClick.bind(this));
+            }
+
+            _onClick() {
+                this.dispatchEvent(new CustomEvent('contact-clicked', {
+                    bubbles: true,
+                    detail: {
+                        thumbnail: this.thumbnail,
+                        name: this.name,
+                        phone: this.phone,
+                        address: this.address
+                    }
+                }))
+            }
+        }
+
+        customElements.define('contact-card', ContactCard); //Definimos el componente
+
+    })(window.customElements); //Para no manejar todo el objeto window, solo pasamos CustomElements
+</script>

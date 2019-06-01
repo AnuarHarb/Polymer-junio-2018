@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabs</title>
+</head>
+<body>
+    <nav>
+        <ul id="tabs__list" class="tabs__ul">
+            <li id="welcome__btn" class="tab">Welcome</li>
+            <li id="new__btn" class="tab">New Tab</li>
+        </ul>
+    </nav>
+
+    <main>
+        <div id="welcome__div" class="container">
+            <h1>Welcome</h1>
+            <p>This is Uzi's Tabs Excersise</p>
+        </div>
+
+        <div id="create__div" class="hidden__div container">
+            <h1>Create new tab</h1>
+            <p>Type the name of your new tab</p>
+            <input id="text__input" type="text">
+            <button id="create__btn">Create</button>
+        </div>
+
+        <div id="content__div" class="hidden__div container">
+            <h1>Hi</h1>
+        </div>
+    </main>
+    
+    <script src="tabs.js" async></script>
+</body>
+</html>

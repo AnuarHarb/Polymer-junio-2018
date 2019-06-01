@@ -1,0 +1,37 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="simple-component">
+    <template>
+        <style>
+        
+        </style>
+
+        <h1>Simple component</h1>
+        <h2>My name is [[myName]]</h2>
+
+        <paper-button>Hola mundo</paper-button>
+
+    </template>
+    <script>
+        (function simpleComponent(customElements) {
+            class SimpleComponent extends Polymer.Element {
+                static get is() { return 'simple-component'; }
+                static get properties() {
+                    return {
+                        myName: {
+                            type: String,
+                            value: 'Uzi',
+                            observer: 'nameChanged'
+                        }
+                    }
+                }
+
+                nameChanged(newValue, oldValue) {
+                    console.log('Cambiaron el nombre de ' + oldValue + ' a ' + newValue);
+                }
+            }
+            customElements.define(SimpleComponent.is, SimpleComponent)
+        })(window.customElements);
+    </script>
+</dom-module>

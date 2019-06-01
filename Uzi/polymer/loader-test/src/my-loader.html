@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="my-loader">
+    <template>
+        <style>
+        
+        </style>
+
+        <h1>Hola  [[hola]]</h1>
+    </template>
+
+    <script>
+        (function myLoader(customElements) {
+            'use strict'
+
+            class MyLoader extends Polymer.Element {
+                static get is() { return 'my-loader'; }
+                static get properties() {
+                    return {
+                        hola: {
+                            type: String,
+                            value: 'Uzi'
+                        }
+                    }
+                }
+            }
+            customElements.define(MyLoader.is, MyLoader);
+        })(window.customElements);
+    </script>
+</dom-module>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LOADER TEST</title>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="../src/my-loader.html">
+</head>
+
+<body>
+    <test-fixture id="my-loader-slow">
+        <template>
+            <my-loader speed="slow"></my-loader>
+        </template>
+    </test-fixture>
+
+    <test-fixture id="my-loader-fast">
+        <template>
+            <my-loader speed="fast"></my-loader>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('Tests in my loader', () => {
+            let myLoaderSlow;
+            setup(() => {
+                myLoaderSlow = fixture('my-loader-slow');
+            });
+
+            let myLoaderFast;
+            setup(() => {
+                myLoaderFast = fixture('my-loader-fast');
+            });
+
+            suite('Speed time added test', () => {
+                test('Slow returns 2', () => {
+                    assert.equal(myLoaderSlow.setNumericalSpeed(myLoaderSlow.speed), '2');
+                });
+
+                test('Fast returns 8', () => {
+                    assert.equal(myLoaderFast.setNumericalSpeed(myLoaderFast.speed), '8');
+                });
+            });
+
+            suite('Intervals length test', () => {
+                test('Slow returns random between 1-20', () => {
+                    expect(myLoaderSlow.calculateRandomIntervals(myLoaderSlow.speed)).be.within(1, 20);
+                });
+
+                test('Fast returns random between 1-60', () => {
+                    expect(myLoaderFast.calculateRandomIntervals(myLoaderFast.speed)).be.within(1, 20);
+                });
+            });
+
+            suite('Intervals length test', () => {
+                test('Slow ends and distpatch the event', (done) => {
+                    myLoaderSlow.addEventListener('load-finished', (event) => {
+                        assert.equal(event.detail, 'finish in slow mode');
+                        done();
+                    });
+                    myLoaderSlow.bootLoader();
+                });
+
+                test('Fast ends and distpatch the event', (done) => {
+                    myLoaderFast.addEventListener('load-finished', (event) => {
+                        assert.equal(event.detail, 'finish in fast mode');
+                        done();
+                    });
+                    myLoaderFast.bootLoader();
+                });
+            });
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="contact-card">
+    <template>
+        <style>
+            :root {
+                width: 100%;
+                margin-bottom: 1em;
+            }
+        </style>
+
+        <paper-card 
+            heading="[[name]]" 
+            image="[[thumbnail]]" 
+            alt="[[name]]"
+            on-tap="triggThisCard">
+            <div class="card-actions">
+                <paper-button>
+                    <iron-icon icon="communication:phone"></iron-icon>
+                    &nbsp;[[phone]]</paper-button>
+                <paper-button>
+                    <iron-icon icon="communication:location-on"></iron-icon>
+                    &nbsp;[[address]]</paper-button>
+            </div>
+        </paper-card>
+
+
+    </template>
+</dom-module>
+
+<script>
+    (function contactCard(customElements) {
+        'use strict';
+
+        class ContactCard extends Polymer.Element {
+            static get is() { return 'contact-card'; }
+
+            static get properties() {
+                return {
+                    name: {
+                        type: String,
+                        value: 'Hi'
+                    },
+
+                    phone: {
+                        type: String,
+                        value: 'Initial'
+                    },
+
+                    address: {
+                        type: String,
+                        value: 'Mexico City'
+                    },
+                    favourite: {
+                        type: Boolean,
+                        value: false
+                    },
+                    thumbnail: {
+                        type: String,
+                        value: 'http://placehold.it/500x500/FFC107/000000'
+                    }
+                }
+            }
+
+            triggThisCard() {
+                this.dispatchEvent(new CustomEvent('card-clicked', {
+                    bubbles: true,
+                    detail: {
+                        name: this.name,
+                        phone: this.phone,
+                        address: this.address,
+                        favourite: this.favourite,
+                        thumbnail: this.thumbnail
+                    }
+                }));
+            }
+
+
+
+        }
+
+        customElements.define(ContactCard.is, ContactCard)
+    })(window.customElements);
+</script>

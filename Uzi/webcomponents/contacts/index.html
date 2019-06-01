@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <link rel="import" href="app-shell.html">
+    <link rel="import" href="contact-card.html">
+    <link rel="import" href="contact-detail.html">
+
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+
+    <app-shell>
+        <contact-detail
+            id="detail__component"
+            thumbnail="assets/emma.png"
+            name="Hola"
+            phone="Teléfono"
+            address="Dirección"
+            slot="detail-slot"></contact-detail>
+
+
+        <contact-card thumbnail="assets/luke.jpeg" name="Luke Skywalker" phone="55-19BBY" address="Tatooine" slot="card-slot"></contact-card>
+        <contact-card thumbnail="assets/c3po.jpeg" name="C-3PO" phone="55-112BBY" address="Tatooine" slot="card-slot"></contact-card>
+        <contact-card thumbnail="assets/r2d2.jpeg" name="R2-D2" phone="55-33BBY" address="Naboo" slot="card-slot"></contact-card>
+        <contact-card thumbnail="assets/darth.jpeg" name="Darth Vader" phone="55-41.9BBY" address="Tatooine" slot="card-slot"></contact-card>
+    </app-shell>
+</body>
+
+</html>

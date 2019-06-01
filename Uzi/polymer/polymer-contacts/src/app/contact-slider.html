@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="contact-slider">
+    <template>
+        <style>
+        </style>
+
+        <h1>Slider :)</h1>
+
+        <div>
+            <dom-repeat items="[[images]]">
+                <template>
+
+                    <dom-if if="[[computeIndex(currentSlide, index)]]">
+                        <template>
+                            <div class="slide__div">
+                                <img class="slide__img" src="[[item.route]]" alt="">
+                                <p>[[index]]</p>
+                            </div>
+                        </template>
+                    </dom-if>
+
+                </template>
+            </dom-repeat>
+        </div>
+
+        <paper-button on-tap="prevSlide">Prev</paper-button>
+        <paper-button on-tap="nextSlide">Next</paper-button>
+
+    </template>
+</dom-module>
+
+<script>
+    (function contactSlider(customElements) {
+        'use strict';
+
+        class ContactSlider extends Polymer.Element {
+            static get is() { return 'contact-slider'; }
+
+            static get properties() {
+                return {
+                    images: {
+                        type: Array,
+                        value: [
+                            {
+                                route: '../../assets/img1.jpg'
+                            },
+                            {
+                                route: '../../assets/img2.jpg'
+                            },
+                            {
+                                route: '../../assets/img3.jpg'
+                            }
+                        ]
+                    },
+
+                    currentSlide: {
+                        type: Number,
+                        value: 1
+                    }
+
+                }
+            }
+
+            computeIndex(currentSlide, index) {
+                if (index == currentSlide) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            prevSlide() {
+                this.currentSlide = this.currentSlide - 1;
+            }
+
+            nextSlide() {
+                this.currentSlide = this.currentSlide + 1;
+            }
+            
+
+        }
+
+        customElements.define(ContactSlider.is, ContactSlider)
+    })(window.customElements);
+</script>

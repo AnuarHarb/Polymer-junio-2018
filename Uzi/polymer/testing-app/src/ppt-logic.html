@@ -1,0 +1,108 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="ppt-logic">
+    <template>
+        <style>
+        </style>
+    </template>
+
+    <script>
+        (function pptLogic(customElements) {
+            'use strict';
+
+            class PptLogic extends Polymer.Element {
+                static get is() { return 'ppt-logic'; }
+                static get properties() {
+                    return {
+                        userThrow: String,
+                        cpuThrow: Number
+                    }
+                }
+
+                transformRandomNumberToString(randomValue) {
+                    if (randomValue >= 0 && randomValue <= 0.33) {
+                        return 'Piedra';
+                    } else if (randomValue >= 0.34 && randomValue <= 0.66) {
+                        return 'Papel';
+                    } else if (randomValue >= 0.67 && randomValue <= 1) {
+                        return 'Tijeras';
+                    } else {
+                        console.error('Ocurrió un error, valor random ineperado');
+                    }
+                }
+
+                bootGame() {
+                    let convertedCpuThrow = this.transformRandomNumberToString(this.cpuThrow);
+                    this.calculateResult(this.userThrow, convertedCpuThrow);
+                }
+
+                calculateResult(userThrow, convertedCpuThrow) {
+                    if (userThrow == 'Piedra') {
+                        this.rockLogic(convertedCpuThrow);
+                    } else if (userThrow == 'Papel') {
+                        this.paperLogic(convertedCpuThrow);
+                    } else if (userThrow == 'Tijeras') {
+                        this.scissorsLogic(convertedCpuThrow);
+                    } else {
+                        console.error('Error tiro del usuario no reibido');
+                    }
+                }
+
+                rockLogic(convertedCpuThrow) {
+                    if (convertedCpuThrow == 'Piedra') {
+                        this.dispatchEvent(new CustomEvent('result-obtained', {
+                            bubbles: true, detail: { user: 'Piedra', computer: 'Piedra', result: 'Empate' }
+                        }));
+                    } else if (convertedCpuThrow == 'Papel') {
+                        this.dispatchEvent(new CustomEvent('result-obtained', {
+                            bubbles: true, detail: { user: 'Piedra', computer: 'Papel', result: 'Pierdes' }
+                        }));
+                    } else if (convertedCpuThrow == 'Tijeras') {
+                        this.dispatchEvent(new CustomEvent('result-obtained', {
+                            bubbles: true, detail: { user: 'Piedra', computer: 'Tijeras', result: 'Ganas' }
+                        }));
+                    } else {
+                        console.error('Ocurrió un error');
+                    }
+                }
+
+                paperLogic(convertedCpuThrow) {
+                    if (convertedCpuThrow == 'Piedra') {
+                        this.dispatchEvent(new CustomEvent('result-obtained', {
+                            bubbles: true, detail: { user: 'Papel', computer: 'Piedra', result: 'Ganas' }
+                        }));
+                    } else if (convertedCpuThrow == 'Papel') {
+                        this.dispatchEvent(new CustomEvent('result-obtained', {
+                            bubbles: true, detail: { user: 'Papel', computer: 'Papel', result: 'Empate' }
+                        }));
+                    } else if (convertedCpuThrow == 'Tijeras') {
+                        this.dispatchEvent(new CustomEvent('result-obtained', {
+                            bubbles: true, detail: { user: 'Papel', computer: 'Tijeras', result: 'Pierdes' }
+                        }));
+                    } else {
+                        console.error('Ocurrió un error');
+                    }
+                }
+
+                scissorsLogic(convertedCpuThrow) {
+                    if (convertedCpuThrow == 'Piedra') {
+                        this.dispatchEvent(new CustomEvent('result-obtained', {
+                            bubbles: true, detail: { user: 'Tijeras', computer: 'Piedra', result: 'Pierdes' }
+                        }));
+                    } else if (convertedCpuThrow == 'Papel') {
+                        this.dispatchEvent(new CustomEvent('result-obtained', {
+                            bubbles: true, detail: { user: 'Tijeras', computer: 'Papel', result: 'Ganas' }
+                        }));
+                    } else if (convertedCpuThrow == 'Tijeras') {
+                        this.dispatchEvent(new CustomEvent('result-obtained', {
+                            bubbles: true, detail: { user: 'Tijeras', computer: 'Tijeras', result: 'Empate' }
+                        }));
+                    } else {
+                        console.error('Ocurrió un error');
+                    }
+                }
+            }
+            customElements.define(PptLogic.is, PptLogic);
+        })(window.customElements);
+    </script>
+</dom-module>

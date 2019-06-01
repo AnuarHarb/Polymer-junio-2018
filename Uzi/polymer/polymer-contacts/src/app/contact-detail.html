@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="contact-slider.html">
+
+<dom-module id="contact-detail">
+    <template>
+        <style>
+            :root {
+                width: 100%;
+                padding: 1em;
+            }
+
+            paper-card {
+                text-align: center;
+            }
+        </style>
+
+        <paper-card>
+
+            <dom-if if="[[thumbnail]]">
+                <template>
+                    <contact-slider></contact-slider>
+                </template>
+            </dom-if>
+
+            <h1>[[name]]</h1>
+            <paper-button>
+                <iron-icon icon="communication:phone"></iron-icon>
+                &nbsp;[[phone]]</paper-button>
+
+            <br><br>
+
+            <paper-button>
+                <iron-icon icon="communication:location-on"></iron-icon>
+                &nbsp;[[address]]</paper-button>
+        </paper-card>
+
+    </template>
+</dom-module>
+
+<script>
+    (function contactDetail(customElements) {
+        'use strict';
+
+        class ContactDetail extends Polymer.Element {
+            static get is() { return 'contact-detail'; }
+
+            static get properties() {
+                return {
+                    name: {
+                        type: String,
+                        value: 'Hola'
+                    },
+
+                    phone: {
+                        type: String,
+                        value: 'Placenumber'
+                    },
+
+                    address: {
+                        type: String,
+                        value: 'Placeaddress'
+                    },
+
+                    favourite: {
+                        type: Boolean,
+                        value: true
+                    },
+                    thumbnail: {
+                        type: String,
+                        value: 'http://placehold.it/500x500/FFC107/000000'
+                    }
+
+                }
+            }
+        }
+
+        customElements.define(ContactDetail.is, ContactDetail)
+    })(window.customElements);
+</script>
